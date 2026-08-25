@@ -1,0 +1,76 @@
+<div class="vp-upload">
+
+  <input #fileInput type="file" [accept]="accept" hidden (change)="onFileSelected($event)">
+
+  <div class="vp-upload__container" [class.dragging]="dragging" (click)="openFilePicker()"
+    (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+
+    @if(preview){
+
+    <img class="vp-upload__preview" [src]="preview" alt="Preview">
+
+    <div class="vp-upload__filename">
+
+      {{ fileName }}
+
+    </div>
+
+    <!-- Overlay -->
+    <div class="vp-upload__overlay" (click)="$event.stopPropagation()">
+
+      <vp-button label="Alterar" icon="edit" variant="outline" (clicked)="changeImage()">
+      </vp-button>
+
+      <vp-button label="Remover" icon="delete" variant="danger" (clicked)="removeImage()">
+      </vp-button>
+
+    </div>
+
+    }
+
+    @else {
+
+    <div class="vp-upload__content">
+
+      <div class="vp-upload__icon">
+
+        <vp-icon name="photo_camera" [size]="42" color="#16D98F">
+        </vp-icon>
+
+      </div>
+
+      <div class="vp-upload__title">
+
+        {{ title }}
+
+      </div>
+
+      <div class="vp-upload__subtitle">
+
+        {{ subtitle }}
+
+      </div>
+
+      <div class="vp-upload__max">
+
+        {{ maxSize }}
+
+      </div>
+
+    </div>
+
+    }
+
+  </div>
+
+  @if(error){
+
+  <small class="vp-upload__error">
+
+    {{ error }}
+
+  </small>
+
+  }
+
+</div>

@@ -1,0 +1,54 @@
+<div class="vp-input">
+
+  @if (label) {
+
+  <label class="vp-input__label">
+
+    {{ label }}
+
+    @if (required) {
+    <span class="vp-input__required">*</span>
+    }
+
+  </label>
+
+  }
+
+  <div class="vp-input__wrapper" [class.vp-input__wrapper--disabled]="disabled"
+    [class.vp-input__wrapper--error]="!!error">
+
+    @if (icon) {
+
+    <div class="vp-input__icon">
+
+      <vp-icon [name]="icon" [size]="20">
+      </vp-icon>
+
+    </div>
+
+    }
+
+    <input class="vp-input__field" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
+      [value]="value" (input)="onInput($event)" (blur)="onBlur()">
+
+  </div>
+
+  @if (error) {
+
+  <small class="vp-input__error">
+
+    {{ error }}
+
+  </small>
+
+  } @else if (hint) {
+
+  <small class="vp-input__hint">
+
+    {{ hint }}
+
+  </small>
+
+  }
+
+</div>

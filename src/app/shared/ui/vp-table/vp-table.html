@@ -1,0 +1,93 @@
+<div class="vp-table">
+
+  @if(showHeader){
+
+<div class="vp-table__header">
+
+    <div class="vp-table__title">
+
+        {{ title }}
+
+    </div>
+
+    <div class="vp-table__toolbar">
+
+        @if(showSearch){
+
+        <div class="vp-table__search">
+
+            <vp-icon
+                name="search"
+                [size]="20">
+            </vp-icon>
+
+            <input
+                type="text"
+                placeholder="Pesquisar...">
+
+        </div>
+
+        }
+
+        @if(showNewButton){
+
+        <vp-button
+            icon="add">
+
+            {{ newButtonText }}
+
+        </vp-button>
+
+        }
+
+    </div>
+
+</div>
+
+}
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        @for(column of columns; track column.field){
+
+        <th [style.width]="column.width">
+
+          {{ column.header }}
+
+        </th>
+
+        }
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @for(row of data; track $index){
+
+      <tr>
+
+        @for(column of columns; track column.field){
+
+        <td>
+
+          {{ row[column.field] }}
+
+        </td>
+
+        }
+
+      </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+</div>

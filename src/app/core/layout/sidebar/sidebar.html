@@ -1,0 +1,96 @@
+<aside class="sidebar">
+
+  <!-- ========================================= -->
+  <!-- LOGO -->
+  <!-- ========================================= -->
+
+  <div class="sidebar__logo">
+
+    <img src="LOGO1-VISION-2.png" alt="Vision Platform" class="sidebar__logo-image">
+
+  </div>
+  <!-- ========================================= -->
+  <!-- MENU -->
+  <!-- ========================================= -->
+
+  <nav class="sidebar__menu">
+
+    @for(group of menu; track $index){
+
+    <div class="sidebar__group">
+
+      <button class="sidebar__group-title" (click)="toggle(group)">
+
+        <span>
+
+          {{ group.title }}
+
+        </span>
+
+        @if(group.title !== 'Dashboard'){
+
+        <vp-icon [name]="group.expanded ? 'expand_less' : 'expand_more'" [size]="18">
+        </vp-icon>
+
+        }
+
+      </button>
+
+      @if(group.expanded){
+
+      @for(item of group.items; track $index){
+
+      <a class="sidebar__item" [class.sidebar__item--active]="item.active" (click)="select(item)">
+
+        <vp-icon [name]="item.icon" [size]="20">
+        </vp-icon>
+
+        {{ item.title }}
+
+      </a>
+
+      }
+
+      }
+
+    </div>
+
+    }
+
+  </nav>
+  <!-- ========================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================= -->
+
+  <div class="sidebar__footer">
+
+    <div class="sidebar__footer-card">
+
+      <div class="sidebar__footer-icon">
+
+        <vp-icon name="verified" [size]="26" color="#16D98F">
+        </vp-icon>
+
+      </div>
+
+      <div>
+
+        <div class="sidebar__footer-title">
+
+          Vision Platform
+
+        </div>
+
+        <div class="sidebar__footer-version">
+
+          Versão 1.0.0
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>

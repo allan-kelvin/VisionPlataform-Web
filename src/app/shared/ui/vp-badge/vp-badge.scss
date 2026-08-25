@@ -1,0 +1,125 @@
+.vp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  border-radius: 10px;
+
+  border: 1px solid transparent;
+
+  transition: 0.25s;
+
+  user-select: none;
+
+  white-space: nowrap;
+
+  cursor: default;
+}
+
+/* ------------------------- */
+
+.vp-badge--rounded {
+  border-radius: 999px;
+}
+
+/* ------------------------- */
+
+.vp-badge--small {
+  padding: 5px 10px;
+
+  font-size: 12px;
+}
+
+/* ------------------------- */
+
+.vp-badge__text {
+  line-height: 1;
+}
+
+/* ------------------------- */
+
+.vp-badge:hover {
+  transform: translateY(-1px);
+}
+
+/* ==================================================== */
+/* DEFAULT */
+/* ==================================================== */
+
+.vp-badge {
+  background: #f8fafc;
+  color: #334155;
+
+  border-color: #e2e8f0;
+}
+
+/* ==================================================== */
+/* SUCCESS */
+/* ==================================================== */
+
+.vp-badge--success {
+  background: rgba(34, 197, 94, 0.1);
+
+  color: #16a34a;
+
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* ==================================================== */
+/* WARNING */
+/* ==================================================== */
+
+.vp-badge--warning {
+  background: rgba(245, 158, 11, 0.12);
+
+  color: #d97706;
+
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* ==================================================== */
+/* DANGER */
+/* ==================================================== */
+
+.vp-badge--danger {
+  background: rgba(239, 68, 68, 0.12);
+
+  color: #dc2626;
+
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* ==================================================== */
+/* INFO */
+/* ==================================================== */
+
+.vp-badge--info {
+  background: rgba(59, 130, 246, 0.1);
+
+  color: #2563eb;
+
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* ==================================================== */
+/* PURPLE */
+/* ==================================================== */
+
+.vp-badge--purple {
+  background: rgba(124, 58, 237, 0.1);
+
+  color: #6d28d9;
+
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+/* ------------------------- */
+
+vp-icon {
+  display: flex;
+}

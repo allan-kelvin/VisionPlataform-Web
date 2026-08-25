@@ -1,0 +1,200 @@
+<header class="navbar">
+
+  <!-- ================================================= -->
+  <!-- BUSCA -->
+  <!-- ================================================= -->
+
+  <div class="navbar__search">
+
+    <vp-icon
+      name="search"
+      [size]="16">
+    </vp-icon>
+
+    <input
+      type="text"
+      placeholder="Buscar..."
+      aria-label="Buscar">
+
+    <span class="navbar__shortcut">
+
+      ⌘ K
+
+    </span>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- AÇÕES -->
+  <!-- ================================================= -->
+
+  <div class="navbar__actions">
+
+
+    <!-- NOTIFICAÇÕES -->
+
+    <button
+      type="button"
+      class="navbar__action"
+      aria-label="Notificações">
+
+      <vp-icon
+        name="notifications"
+        [size]="20">
+      </vp-icon>
+
+      <span class="navbar__notification">
+
+        3
+
+      </span>
+
+    </button>
+
+
+    <!-- AJUDA -->
+
+    <button
+      type="button"
+      class="navbar__action"
+      aria-label="Ajuda">
+
+      <vp-icon
+        name="help"
+        [size]="20">
+      </vp-icon>
+
+    </button>
+
+
+    <!-- ================================================= -->
+    <!-- USUÁRIO -->
+    <!-- ================================================= -->
+
+    <div class="navbar__user">
+
+
+      <!-- BOTÃO DO USUÁRIO -->
+
+      <button
+        type="button"
+        class="navbar__user-button"
+        (click)="toggleUserMenu()"
+        [attr.aria-expanded]="userMenuOpen">
+
+
+        <!-- AVATAR -->
+
+        <span class="navbar__avatar">
+
+          {{ userInitials }}
+
+        </span>
+
+
+        <!-- INFORMAÇÕES -->
+
+        <span class="navbar__user-info">
+
+          <strong>
+            {{ userName }}
+          </strong>
+
+          <small>
+            {{ userRole }}
+          </small>
+
+        </span>
+
+
+        <!-- SETA -->
+
+        <vp-icon
+          name="keyboard_arrow_down"
+          [size]="18">
+        </vp-icon>
+
+      </button>
+
+
+      <!-- ================================================= -->
+      <!-- DROPDOWN -->
+      <!-- ================================================= -->
+
+      @if (userMenuOpen) {
+
+        <div class="navbar__dropdown">
+
+
+          <!-- PERFIL -->
+
+          <button
+            type="button"
+            class="navbar__dropdown-item"
+            (click)="openProfile()">
+
+            <vp-icon
+              name="person"
+              [size]="18">
+            </vp-icon>
+
+            <span>
+              Meu perfil
+            </span>
+
+          </button>
+
+
+          <!-- CONFIGURAÇÕES -->
+
+          <button
+            type="button"
+            class="navbar__dropdown-item"
+            (click)="openSettings()">
+
+            <vp-icon
+              name="settings"
+              [size]="18">
+            </vp-icon>
+
+            <span>
+              Configurações
+            </span>
+
+          </button>
+
+
+          <!-- DIVISOR -->
+
+          <div class="navbar__dropdown-divider"></div>
+
+
+          <!-- SAIR -->
+
+          <button
+            type="button"
+            class="navbar__dropdown-item navbar__dropdown-item--danger"
+            (click)="logout()">
+
+            <vp-icon
+              name="logout"
+              [size]="18">
+            </vp-icon>
+
+            <span>
+              Sair
+            </span>
+
+          </button>
+
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</header>

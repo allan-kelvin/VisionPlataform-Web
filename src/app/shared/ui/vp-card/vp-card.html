@@ -1,0 +1,20 @@
+<div class="vp-card" [class.vp-card--padding]="padding">
+
+  @if(title){
+  <div class="vp-card__header">
+    <h3>
+      {{ title }}
+    </h3>
+
+    @if(subtitle){
+
+    <p>
+      {{ subtitle }}
+    </p>
+    }
+  </div>
+  }
+  <div class="vp-card__content">
+    <ng-content />
+  </div>
+</div>

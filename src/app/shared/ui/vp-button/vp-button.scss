@@ -1,0 +1,183 @@
+.vp-button {
+  width: 100%;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    transform 0.18s,
+    box-shadow 0.25s;
+}
+
+.vp-button__content {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+/*=========================
+TAMANHOS
+==========================*/
+
+.vp-button--small {
+  height: 38px;
+  padding: 0 18px;
+}
+
+.vp-button--medium {
+  height: 48px;
+  padding: 0 24px;
+}
+
+.vp-button--large {
+  height: 56px;
+  padding: 0 32px;
+}
+
+/*=========================
+PRIMARY
+==========================*/
+
+.vp-button--primary {
+  background: linear-gradient(135deg, var(--vp-primary), var(--vp-primary-dark));
+  color: #fff;
+}
+
+.vp-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(22, 217, 143, 0.25);
+}
+
+/*=========================
+SECONDARY
+==========================*/
+
+.vp-button--secondary {
+  background: var(--vp-card);
+  color: var(--vp-text);
+  border: 1px solid var(--vp-border);
+}
+
+/*=========================
+OUTLINE
+==========================*/
+
+.vp-button--outline {
+  background: transparent;
+  border: 1px solid var(--vp-primary);
+  color: var(--vp-primary);
+}
+
+/*=========================
+SUCCESS
+==========================*/
+
+.vp-button--success {
+  background: var(--vp-success);
+  color: white;
+}
+
+/*=========================
+WARNING
+==========================*/
+
+.vp-button--warning {
+  background: var(--vp-warning);
+  color: white;
+}
+
+/*=========================
+DANGER
+==========================*/
+
+.vp-button--danger {
+  background: var(--vp-danger);
+  color: white;
+}
+
+/*=========================
+GHOST
+==========================*/
+
+.vp-button--ghost {
+  background: transparent;
+  color: var(--vp-text);
+}
+
+/*=========================
+FULL
+==========================*/
+
+.vp-button--block {
+  width: 100%;
+}
+
+/*=========================
+ROUNDED
+==========================*/
+
+.vp-button--rounded {
+  border-radius: 999px;
+}
+
+/*=========================
+FOCUS
+==========================*/
+
+.vp-button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(22, 217, 143, 0.18);
+}
+
+/*=========================
+DISABLED
+==========================*/
+
+.vp-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/*=========================
+SPINNER
+==========================*/
+
+.vp-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+//LABEL
+
+.vp-button__label {
+  white-space: nowrap;
+  font-weight: 600;
+  line-height: 1;
+}

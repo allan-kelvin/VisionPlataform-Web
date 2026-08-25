@@ -1,0 +1,32 @@
+.vp-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(2, 8, 20, 0.06);
+  overflow: hidden;
+}
+.vp-card--padding {
+  padding: 40px;
+}
+
+.vp-card__header {
+  margin-bottom: 36px;
+}
+
+.vp-card__header h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--vp-text);
+}
+
+.vp-card__header p {
+  margin-top: 8px;
+  color: var(--vp-text-secondary);
+}
+
+.vp-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

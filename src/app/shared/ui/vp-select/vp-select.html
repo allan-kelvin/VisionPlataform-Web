@@ -1,0 +1,67 @@
+<div class="vp-select">
+
+  @if(label){
+
+  <label class="vp-select__label">
+
+    {{ label }}
+
+    @if(required){
+
+    <span>*</span>
+
+    }
+
+  </label>
+
+  }
+
+  <div class="vp-select__wrapper" [class.error]="!!error" [class.disabled]="disabled">
+
+    <select [disabled]="disabled" [value]="value" (change)="onSelect($event)" (blur)="onBlur()">
+
+      <option value="" disabled>
+
+        {{ placeholder }}
+
+      </option>
+
+      @for(option of options; track option.value){
+
+      <option [value]="option.value">
+
+        {{ option.label }}
+
+      </option>
+
+      }
+
+    </select>
+
+    <vp-icon name="expand_more" [size]="20">
+
+    </vp-icon>
+
+  </div>
+
+  @if(error){
+
+  <small class="vp-select__error">
+
+    {{ error }}
+
+  </small>
+
+  }
+
+  @else if(hint){
+
+  <small class="vp-select__hint">
+
+    {{ hint }}
+
+  </small>
+
+  }
+
+</div>

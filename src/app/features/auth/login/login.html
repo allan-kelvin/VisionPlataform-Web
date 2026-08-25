@@ -1,0 +1,117 @@
+<div class="vp-login">
+
+  <!-- LADO ESQUERDO -->
+  <section class="vp-login__left">
+    <div class="vp-login__brand">
+      <img src="LOGO2-VISION.png" alt="Vision Platform">
+      <div>
+        <h1>Vision <span>Platform</span></h1>
+        <p>Gestão de Qualidade e Governança de Release</p>
+      </div>
+
+    </div>
+
+    <div class="vp-login__hero">
+
+      <h2>
+        Qualidade que
+        <br>
+        gera <span>confiança.</span>
+
+      </h2>
+
+      <p>
+
+        Controle versões, gerencie tarefas,
+        garanta evidências de teste e entregue
+        software com qualidade e rastreabilidade.
+
+      </p>
+
+    </div>
+
+    <div class="vp-login__illustration">
+
+      <img src="Logo-Login.png" alt="Vision Platform">
+    </div>
+
+    <div class="vp-login__modules">
+
+      <!-- cards serão adicionados depois -->
+
+    </div>
+
+  </section>
+
+  <!-- LADO DIREITO -->
+
+  <section class="vp-login__right">
+
+    <div class="vp-login-card">
+
+      <div class="vp-login-card__header">
+
+        <div class="vp-login-card__icon">
+          <vp-icon name="shield" color="#22d98f" [size]="48">
+          </vp-icon>
+        </div>
+
+        <h2>Bem-vindo de volta!</h2>
+
+        <p>
+          Acesse sua conta para continuar
+          gerenciando a qualidade dos seus sistemas.
+        </p>
+
+      </div>
+
+      <!-- formulário -->
+
+      <div class="vp-login-card__form">
+        <vp-input label="E-mail" icon="mail" placeholder="Digite seu e-mail" [(ngModel)]="email">
+        </vp-input>
+
+        <br>
+
+        <vp-password-input label="Senha" placeholder="Digite sua senha" [(ngModel)]="password">
+        </vp-password-input>
+
+        <br>
+
+        <div class="vp-login__options">
+
+          <vp-checkbox label="Lembrar de mim" [(ngModel)]="remember">
+          </vp-checkbox>
+
+          <a>
+
+            Esqueceu a senha?
+
+          </a>
+
+        </div>
+
+        <br>
+
+        <vp-button [loading]="loading" icon="login" (click)="login()">
+          Entrar na Plataforma
+        </vp-button>
+
+        <br><br>
+
+        <vp-divider>
+          ou
+        </vp-divider>
+
+        <br>
+
+        <vp-button variant="outline" icon="google">
+          Entrar com Google
+        </vp-button>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

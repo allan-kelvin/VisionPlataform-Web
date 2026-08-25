@@ -1,0 +1,181 @@
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.vp-table {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.vp-table__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 24px;
+  border-bottom: 1px solid #eef2f7;
+  background: #ffffff;
+}
+
+.vp-table__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  margin-right: 40px;
+}
+
+.vp-table__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+.vp-table__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 340px;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  background: #ffffff;
+  transition: 0.25s;
+}
+
+.vp-table__search:hover {
+  border-color: #94a3b8;
+}
+
+.vp-table__search:focus-within {
+  border-color: #16d98f;
+  box-shadow: 0 0 0 4px rgba(22, 217, 143, 0.15);
+}
+
+.vp-table__search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.vp-table__search input::placeholder {
+  color: #94a3b8;
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* ==========================================================
+   HEADER TABLE
+========================================================== */
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  padding: 18px 24px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   BODY
+========================================================== */
+
+td {
+  padding: 20px 24px;
+  font-size: 14px;
+  color: #0f172a;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+tbody tr {
+  transition: 0.18s;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================
+   RESPONSIVO
+========================================================== */
+
+@media (max-width: 992px) {
+  .vp-table {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 700px;
+  }
+}
+
+/* ==========================================================
+   FUTURAS FEATURES
+========================================================== */
+
+/* Ordenação */
+
+.vp-table__sortable {
+  cursor: pointer;
+
+  user-select: none;
+}
+
+/* Coluna ações */
+
+.vp-table__actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Status */
+
+.vp-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Avatar */
+
+.vp-table__avatar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

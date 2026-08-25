@@ -1,0 +1,16 @@
+<span class="vp-badge" [class.vp-badge--success]="variant==='success'" [class.vp-badge--warning]="variant==='warning'"
+  [class.vp-badge--danger]="variant==='danger'" [class.vp-badge--info]="variant==='info'"
+  [class.vp-badge--purple]="variant==='purple'" [class.vp-badge--small]="small" [class.vp-badge--rounded]="rounded">
+
+  @if(icon){
+
+  <vp-icon [name]="icon" [size]="16">
+  </vp-icon>
+
+  }
+
+  <span class="vp-badge__text">
+    <ng-content></ng-content>
+  </span>
+
+</span>

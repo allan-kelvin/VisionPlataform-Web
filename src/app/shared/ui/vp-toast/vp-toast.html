@@ -1,0 +1,27 @@
+<div class="vp-toast-container">
+
+  @for(toast of notification.toasts$ | async; track toast.id){
+
+  <div class="vp-toast" [class.success]="toast.type==='success'" [class.error]="toast.type==='error'"
+    [class.warning]="toast.type==='warning'" [class.info]="toast.type==='info'">
+
+    <vp-icon [name]="icon(toast.type)" [size]="22">
+    </vp-icon>
+
+    <span>
+
+      {{ toast.message }}
+
+    </span>
+
+    <button (click)="notification.remove(toast.id)">
+
+      ×
+
+    </button>
+
+  </div>
+
+  }
+
+</div>

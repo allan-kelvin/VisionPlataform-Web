@@ -1,0 +1,45 @@
+<div class="vp-page-header">
+
+  <div class="vp-page-header__left">
+
+    @if(icon){
+
+    <div class="vp-page-header__icon">
+
+      <vp-icon [name]="icon" [size]="34" color="var(--vp-primary)">
+
+      </vp-icon>
+
+    </div>
+
+    }
+
+    <div>
+
+      <h1>
+
+        {{ title }}
+
+      </h1>
+
+      @if(subtitle){
+
+      <p>
+
+        {{ subtitle }}
+
+      </p>
+
+      }
+
+    </div>
+
+  </div>
+
+  <div class="vp-page-header__actions">
+
+    <ng-content />
+
+  </div>
+
+</div>

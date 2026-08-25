@@ -1,0 +1,864 @@
+<div class="dashboard">
+
+  <!-- ================================= -->
+  <!-- HEADER -->
+  <!-- ================================= -->
+
+  <header class="dashboard__header">
+
+    <div class="dashboard__title">
+
+      <h1>
+        Dashboard
+      </h1>
+
+      <p>
+        Visão geral da qualidade e governança de releases
+      </p>
+
+    </div>
+
+
+    <div class="dashboard__actions">
+
+      <!-- PERÍODO -->
+
+      <button type="button" class="dashboard__date">
+
+        <vp-icon name="calendar_today" [size]="20">
+        </vp-icon>
+
+        <span>
+          {{ dateRange }}
+        </span>
+
+        <vp-icon name="keyboard_arrow_down" [size]="20">
+        </vp-icon>
+
+      </button>
+
+
+      <!-- NOVA VERSÃO -->
+
+      <vp-button label="Nova Versão" icon="add" variant="outline" size="medium" (click)="newVersion()">
+
+      </vp-button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================= -->
+  <!-- INDICADORES -->
+  <!-- ================================= -->
+
+  <section class="dashboard__metrics">
+
+
+
+
+    <!-- VERSÕES GERADAS -->
+
+    <article class="metric-card">
+
+      <div class="metric-card__top">
+
+        <div class="metric-card__icon metric-card__icon--green">
+
+          <vp-icon name="description" [size]="26">
+          </vp-icon>
+
+        </div>
+
+        <div class="metric-card__content">
+
+          <span class="metric-card__label">
+            Versões Geradas
+          </span>
+
+          <strong class="metric-card__value">
+            {{ versionsGenerated }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="metric-card__footer">
+
+        <span class="metric-card__positive">
+
+          ↑ 12%
+
+        </span>
+
+        <span>
+          vs período anterior
+        </span>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- PRÓXIMA VERSÃO -->
+
+    <article class="metric-card">
+
+      <div class="metric-card__top">
+
+        <div class="metric-card__icon metric-card__icon--purple">
+
+          <vp-icon name="rocket_launch" [size]="26">
+          </vp-icon>
+
+        </div>
+
+        <div class="metric-card__content">
+
+          <span class="metric-card__label">
+            Próxima Versão
+          </span>
+
+          <strong class="metric-card__value">
+            {{ nextVersion }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="metric-card__version">
+
+        <span>
+          Limite: 19/02/2025
+        </span>
+
+      </div>
+
+
+      <div class="metric-card__footer metric-card__footer--purple">
+
+        Previsão: 27/02/2025
+
+      </div>
+
+    </article>
+
+
+
+    <!-- TAXA DE QUALIDADE -->
+
+    <article class="metric-card">
+
+      <div class="metric-card__top">
+
+        <div class="metric-card__icon metric-card__icon--blue">
+
+          <vp-icon name="show_chart" [size]="26">
+          </vp-icon>
+
+        </div>
+
+        <div class="metric-card__content">
+
+          <span class="metric-card__label">
+            Taxa de Qualidade
+          </span>
+
+          <strong class="metric-card__value">
+            {{ qualityRate }}%
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="metric-card__footer">
+
+        <span class="metric-card__positive">
+          ↑ 8%
+        </span>
+
+        <span>
+          vs período anterior
+        </span>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- TAREFAS CONCLUÍDAS -->
+
+    <article class="metric-card">
+
+      <div class="metric-card__top">
+
+        <div class="metric-card__icon metric-card__icon--orange">
+
+          <vp-icon name="assignment_turned_in" [size]="26">
+          </vp-icon>
+
+        </div>
+
+        <div class="metric-card__content">
+
+          <span class="metric-card__label">
+            Tarefas Concluídas
+          </span>
+
+          <strong class="metric-card__value">
+            {{ completedTasks }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="metric-card__progress">
+
+        <div class="metric-card__progress-header">
+
+          <span></span>
+
+          <strong>
+            76%
+          </strong>
+
+        </div>
+
+        <div class="metric-card__progress-bar">
+
+          <span></span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+  </section>
+
+  <!-- ================================= -->
+  <!-- GRÁFICOS -->
+  <!-- ================================= -->
+
+  <section class="dashboard__charts">
+
+
+    <!-- ================================= -->
+    <!-- TAREFAS POR VERSÃO -->
+    <!-- ================================= -->
+
+    <article class="dashboard-chart dashboard-chart--tasks">
+
+      <div class="dashboard-chart__header">
+
+        <div>
+
+          <h2>
+            Tarefas por Versão
+          </h2>
+
+        </div>
+
+
+        <button type="button" class="dashboard-chart__filter" (click)="changeVersion()">
+
+          <span>
+            {{ selectedVersion }}
+          </span>
+
+          <vp-icon name="keyboard_arrow_down" [size]="18">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+
+      <!-- LEGENDA -->
+
+      <div class="dashboard-chart__legend">
+
+        <div class="legend-item">
+
+          <span class="legend-dot legend-dot--green"></span>
+
+          <span>
+            Melhoria
+          </span>
+
+        </div>
+
+
+        <div class="legend-item">
+
+          <span class="legend-dot legend-dot--orange"></span>
+
+          <span>
+            Alteração
+          </span>
+
+        </div>
+
+
+        <div class="legend-item">
+
+          <span class="legend-dot legend-dot--red"></span>
+
+          <span>
+            Correção
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- GRÁFICO -->
+
+      <div class="line-chart">
+
+        <!-- GRID -->
+
+        <div class="line-chart__grid">
+
+          <span>100</span>
+          <span>75</span>
+          <span>50</span>
+          <span>25</span>
+          <span>0</span>
+
+        </div>
+
+
+        <svg class="line-chart__svg" viewBox="0 0 700 250" preserveAspectRatio="none">
+
+          <!-- LINHA MELHORIA -->
+
+          <polyline class="chart-line chart-line--green" points="
+            20,118
+            130,68
+            240,54
+            350,72
+            460,130
+            570,75
+            680,94
+          " />
+
+          <!-- LINHA ALTERAÇÃO -->
+
+          <polyline class="chart-line chart-line--orange" points="
+            20,164
+            130,132
+            240,105
+            350,120
+            460,145
+            570,124
+            680,132
+          " />
+
+          <!-- LINHA CORREÇÃO -->
+
+          <polyline class="chart-line chart-line--red" points="
+            20,205
+            130,205
+            240,203
+            350,195
+            460,210
+            570,200
+            680,202
+          " />
+
+
+          <!-- PONTOS VERDES -->
+
+          <circle cx="20" cy="118" r="4" />
+          <circle cx="130" cy="68" r="4" />
+          <circle cx="240" cy="54" r="4" />
+          <circle cx="350" cy="72" r="4" />
+          <circle cx="460" cy="130" r="4" />
+          <circle cx="570" cy="75" r="4" />
+          <circle cx="680" cy="94" r="4" />
+
+        </svg>
+
+
+        <!-- LABELS -->
+
+        <div class="line-chart__labels">
+
+          @for(version of versions; track version) {
+
+          <span>
+            {{ version }}
+          </span>
+
+          }
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- ================================= -->
+    <!-- DISTRIBUIÇÃO -->
+    <!-- ================================= -->
+
+    <article class="dashboard-chart dashboard-chart--distribution">
+
+      <div class="dashboard-chart__header">
+
+        <h2>
+          Distribuição de Tarefas
+        </h2>
+
+      </div>
+
+
+      <div class="distribution">
+
+        <!-- DONUT -->
+
+        <div class="distribution__donut">
+
+          <div class="distribution__donut-center">
+
+            <span>
+              Total
+            </span>
+
+            <strong>
+              {{ taskDistribution.total }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- LEGENDA -->
+
+        <div class="distribution__legend">
+
+
+          <div class="distribution-item">
+
+            <div class="distribution-item__name">
+
+              <span class="legend-dot legend-dot--green"></span>
+
+              <span>
+                Melhoria
+              </span>
+
+            </div>
+
+            <strong>
+              142
+            </strong>
+
+            <span>
+              (48,6%)
+            </span>
+
+          </div>
+
+
+          <div class="distribution-item">
+
+            <div class="distribution-item__name">
+
+              <span class="legend-dot legend-dot--orange"></span>
+
+              <span>
+                Alteração
+              </span>
+
+            </div>
+
+            <strong>
+              87
+            </strong>
+
+            <span>
+              (29,8%)
+            </span>
+
+          </div>
+
+
+          <div class="distribution-item">
+
+            <div class="distribution-item__name">
+
+              <span class="legend-dot legend-dot--red"></span>
+
+              <span>
+                Correção
+              </span>
+
+            </div>
+
+            <strong>
+              63
+            </strong>
+
+            <span>
+              (21,6%)
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- ================================= -->
+  <!-- QUALIDADE + VERSÕES -->
+  <!-- ================================= -->
+
+  <section class="dashboard__bottom">
+
+
+    <!-- ================================= -->
+    <!-- INDICADORES DE QUALIDADE -->
+    <!-- ================================= -->
+
+    <article class="dashboard-panel">
+
+      <div class="dashboard-panel__header">
+
+        <div>
+
+          <h2>
+            Indicadores de Qualidade
+          </h2>
+
+          <p>
+            Visão geral dos principais indicadores
+          </p>
+
+        </div>
+
+        <vp-icon name="verified" [size]="20">
+        </vp-icon>
+
+      </div>
+
+
+      <div class="quality-indicators">
+
+        @for (indicator of qualityIndicators; track indicator.title) {
+
+        <div class="quality-indicator">
+
+
+          <div class="quality-indicator__top">
+
+            <div class="quality-indicator__icon" [class.quality-indicator__icon--success]="indicator.type === 'success'"
+              [class.quality-indicator__icon--warning]="indicator.type === 'warning'">
+
+              <vp-icon [name]="indicator.icon" [size]="20">
+              </vp-icon>
+
+            </div>
+
+
+            <div class="quality-indicator__value">
+
+              {{ indicator.value }}%
+
+            </div>
+
+          </div>
+
+
+          <div class="quality-indicator__info">
+
+            <strong>
+              {{ indicator.title }}
+            </strong>
+
+            <span>
+              {{ indicator.description }}
+            </span>
+
+          </div>
+
+
+          <div class="quality-indicator__progress">
+
+            <div class="quality-indicator__progress-value" [style.width.%]="indicator.value"
+              [class.quality-indicator__progress-value--warning]="indicator.type === 'warning'">
+            </div>
+
+          </div>
+
+        </div>
+
+        }
+
+      </div>
+
+    </article>
+
+
+
+    <!-- ================================= -->
+    <!-- ÚLTIMAS VERSÕES -->
+    <!-- ================================= -->
+
+    <article class="dashboard-panel">
+
+      <div class="dashboard-panel__header">
+
+        <div>
+
+          <h2>
+            Últimas Versões
+          </h2>
+
+          <p>
+            Acompanhamento das versões recentes
+          </p>
+
+        </div>
+
+
+        <button type="button" class="dashboard-panel__action">
+
+          Ver todas
+
+          <vp-icon name="arrow_forward" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+
+      <div class="versions-list">
+
+        @for (version of recentVersions; track version.version) {
+
+        <div class="version-item">
+
+
+          <div class="version-item__icon">
+
+            <vp-icon name="rocket_launch" [size]="18">
+            </vp-icon>
+
+          </div>
+
+
+          <div class="version-item__info">
+
+            <strong>
+              {{ version.version }}
+            </strong>
+
+            <span>
+              {{ version.tasks }} tarefas
+            </span>
+
+          </div>
+
+
+          <div class="version-item__date">
+
+            {{ version.date }}
+
+          </div>
+
+
+          <span class="version-status" [class.version-status--success]="version.statusType === 'success'"
+            [class.version-status--progress]="version.statusType === 'progress'">
+
+            <span class="version-status__dot"></span>
+
+            {{ version.status }}
+
+          </span>
+
+
+          <vp-icon name="chevron_right" [size]="18">
+          </vp-icon>
+
+        </div>
+
+        }
+
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- ================================= -->
+  <!-- ÁREA LATERAL DO DASHBOARD -->
+  <!-- ================================= -->
+
+  <section class="dashboard__side">
+
+
+    <!-- ================================= -->
+    <!-- ATALHOS RÁPIDOS -->
+    <!-- ================================= -->
+
+    <article class="dashboard-panel dashboard-panel--shortcuts">
+
+      <div class="dashboard-panel__header">
+
+        <div>
+
+          <h2>
+            Atalhos Rápidos
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+        @for (action of quickActions; track action.title) {
+
+        <button type="button" class="quick-action">
+
+          <div class="quick-action__icon" [class.quick-action__icon--primary]="action.type === 'primary'"
+            [class.quick-action__icon--warning]="action.type === 'warning'"
+            [class.quick-action__icon--info]="action.type === 'info'"
+            [class.quick-action__icon--purple]="action.type === 'purple'">
+
+            <vp-icon [name]="action.icon" [size]="20">
+            </vp-icon>
+
+          </div>
+
+
+          <div class="quick-action__content">
+
+            <strong>
+              {{ action.title }}
+            </strong>
+
+            <span>
+              {{ action.description }}
+            </span>
+
+          </div>
+
+
+          <vp-icon name="chevron_right" [size]="18" class="quick-action__arrow">
+          </vp-icon>
+
+        </button>
+
+        }
+
+      </div>
+
+    </article>
+
+
+
+    <!-- ================================= -->
+    <!-- ATIVIDADES RECENTES -->
+    <!-- ================================= -->
+
+    <article class="dashboard-panel">
+
+      <div class="dashboard-panel__header">
+
+        <div>
+
+          <h2>
+            Atividades Recentes
+          </h2>
+
+        </div>
+
+
+        <button type="button" class="dashboard-panel__action">
+
+          Ver todas
+
+          <vp-icon name="arrow_forward" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+
+      <div class="activities-list">
+
+        @for (
+        activity of recentActivities;
+        track activity.title
+        ) {
+
+        <div class="activity-item">
+
+
+          <div class="activity-item__icon" [class.activity-item__icon--success]="activity.type === 'success'"
+            [class.activity-item__icon--warning]="activity.type === 'warning'"
+            [class.activity-item__icon--info]="activity.type === 'info'">
+
+            <vp-icon [name]="activity.icon" [size]="17">
+            </vp-icon>
+
+          </div>
+
+
+          <div class="activity-item__content">
+
+            <strong>
+              {{ activity.title }}
+            </strong>
+
+            <span>
+              {{ activity.description }}
+            </span>
+
+          </div>
+
+
+          <span class="activity-item__time">
+
+            {{ activity.time }}
+
+          </span>
+
+        </div>
+
+        }
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

@@ -1,0 +1,48 @@
+<button
+  [type]="type"
+  [disabled]="disabled || loading"
+  class="vp-button"
+  [class.vp-button--rounded]="rounded"
+  [class.vp-button--block]="fullWidth"
+  [class]="'vp-button vp-button--' + variant + ' vp-button--' + size">
+
+
+    @if(loading){
+
+        <span class="vp-spinner"></span>
+
+        <span>Carregando...</span>
+
+    } @else {
+
+        <span class="vp-button__content">
+
+            @if(icon && iconPosition === 'left'){
+
+                <vp-icon
+                    [name]="icon"
+                    [size]="18">
+                </vp-icon>
+
+            }
+
+            <span class="vp-button__label">
+
+                <ng-content></ng-content>
+
+            </span>
+
+            @if(icon && iconPosition === 'right'){
+
+                <vp-icon
+                    [name]="icon"
+                    [size]="18">
+                </vp-icon>
+
+            }
+
+        </span>
+
+    }
+
+</button>

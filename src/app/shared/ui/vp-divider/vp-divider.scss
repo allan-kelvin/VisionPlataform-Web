@@ -1,0 +1,20 @@
+.vp-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 28px 0;
+}
+
+.vp-divider__line {
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.vp-divider__text {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}

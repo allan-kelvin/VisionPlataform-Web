@@ -1,0 +1,325 @@
+<div style="padding:40px;display:flex;gap:20px;flex-wrap:wrap;background:#071827;">
+
+  <vp-button label="Novo Usuário" icon="add">
+  </vp-button>
+
+  <vp-button label="Salvar" icon="save">
+  </vp-button>
+
+  <vp-button label="Editar" icon="edit">
+  </vp-button>
+
+  <vp-button label="Excluir" icon="delete" variant="danger">
+  </vp-button>
+
+  <vp-button label="Entrando..." [loading]="true">
+  </vp-button>
+
+</div>
+
+
+<div style="
+    padding:40px;
+    background:#071827;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    max-width:500px;">
+
+  <vp-input label="Nome" placeholder="Digite seu nome" icon="person">
+  </vp-input>
+
+  <vp-input label="E-mail" placeholder="Digite seu e-mail" type="email" icon="mail">
+  </vp-input>
+
+  <vp-input label="Senha" placeholder="Digite sua senha" type="password" icon="lock">
+  </vp-input>
+
+  <vp-input label="Campo com erro" placeholder="Digite um valor" icon="warning" error="Campo obrigatório">
+  </vp-input>
+
+  <vp-input label="Campo com ajuda" placeholder="Digite um valor" hint="Utilize pelo menos 8 caracteres.">
+  </vp-input>
+
+</div>
+
+
+<div style="
+        padding:40px;
+        max-width:450px;
+        display:flex;
+        flex-direction:column;
+        gap:24px;">
+
+  <vp-select label="Cargo" placeholder="Selecione um cargo" icon="work" [options]="[
+            {value:1,label:'QA Júnior'},
+            {value:2,label:'QA Pleno'},
+            {value:3,label:'QA Sênior'},
+            {value:4,label:'Tech Lead'}
+        ]">
+
+  </vp-select>
+
+</div>
+
+
+<h2>CARDS</h2>
+
+<vp-card title="Cadastrar Usuário" subtitle="Preencha os dados abaixo para criar um novo usuário.">
+
+  <vp-input label="Nome" placeholder="Digite o nome">
+
+  </vp-input>
+
+  <vp-input label="Email" placeholder="Digite o e-mail">
+
+  </vp-input>
+
+  <vp-button>
+
+    Salvar
+
+  </vp-button>
+
+</vp-card>
+
+
+
+<div style="display:flex;gap:25px;flex-wrap:wrap;">
+
+  <h2>BADGES</h2>
+
+  <br>
+
+  <vp-badge>
+
+    Default
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="success">
+
+    Ativo
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="warning">
+
+    Em andamento
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="danger">
+
+    Cancelado
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="info">
+
+    Tech Lead
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="purple">
+
+    QA Sênior
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="success" icon="check_circle">
+
+    Ativo
+
+  </vp-badge>
+
+  <br><br>
+
+  <vp-badge variant="purple" icon="verified_user">
+
+    QA Sênior
+
+  </vp-badge>
+
+  <vp-page-header icon="group" title="Usuários" subtitle="Gerencie os usuários da plataforma.">
+
+    <vp-button icon="add">
+      Novo Usuário
+
+    </vp-button>
+
+  </vp-page-header>
+
+
+  <h2>AVATAR</h2>
+
+  <br>
+
+  <vp-avatar initials="AS">
+  </vp-avatar>
+
+  &nbsp;&nbsp;
+
+  <vp-avatar initials="QA" size="lg">
+  </vp-avatar>
+
+  &nbsp;&nbsp;
+
+  <vp-avatar initials="VP" size="xl">
+  </vp-avatar>
+
+  <br><br>
+
+  <vp-avatar icon="person">
+  </vp-avatar>
+
+  &nbsp;&nbsp;
+
+  <vp-avatar icon="engineering" size="lg">
+  </vp-avatar>
+
+  <br><br>
+
+  <vp-avatar initials="AS" [online]="true">
+  </vp-avatar>
+
+  <br><br>
+
+  <vp-avatar src="https://i.pravatar.cc/150">
+  </vp-avatar>
+
+  &nbsp;&nbsp;
+
+  <vp-avatar src="https://i.pravatar.cc/151" size="lg">
+  </vp-avatar>
+
+  &nbsp;&nbsp;
+
+  <vp-avatar src="https://i.pravatar.cc/152" size="xl" [online]="true">
+  </vp-avatar>
+
+  <h2>LOADING</h2>
+
+<br>
+
+<vp-loading></vp-loading>
+
+<br><br>
+
+<vp-loading
+    [size]="40">
+</vp-loading>
+
+<br><br>
+
+<vp-loading
+    [size]="60"
+    color="#3B82F6">
+</vp-loading>
+
+<br><br>
+
+<vp-loading
+    [size]="80"
+    color="#EF4444">
+</vp-loading>
+
+
+
+<h2>CHECKBOX</h2>
+
+<br>
+
+<vp-checkbox
+    label="Lembrar de mim">
+</vp-checkbox>
+
+<br>
+
+<vp-checkbox
+    [checked]="true"
+    label="Receber notificações">
+</vp-checkbox>
+
+<br>
+
+<vp-checkbox
+    [checked]="true"
+    hint="Você poderá alterar isso depois."
+    label="Enviar e-mails">
+</vp-checkbox>
+
+<br>
+
+<vp-checkbox
+    error="Campo obrigatório"
+    label="Aceito os termos">
+</vp-checkbox>
+
+<br>
+
+<vp-checkbox
+    [disabled]="true"
+    [checked]="true"
+    label="Administrador">
+</vp-checkbox>
+
+<h2>TABLES</h2>
+
+<vp-table
+
+    title="Usuários"
+
+    [showNewButton]="true"
+
+    newButtonText="Novo Usuário"
+
+    [columns]="columns"
+
+    [data]="data">
+
+</vp-table>
+
+<vp-password-input
+
+    label="Senha"
+
+    placeholder="Digite sua senha"
+
+    [showStrength]="true"
+
+    hint="Use pelo menos 8 caracteres.">
+
+</vp-password-input>
+
+<br><br>
+
+<vp-password-input
+    label="Confirmar senha"
+    placeholder="Digite novamente"
+    [showStrength]="false">
+</vp-password-input>
+
+
+<vp-upload
+    title="Logo da Empresa"
+    subtitle="PNG ou SVG"
+    [maxFileSize]="5 * 1024 * 1024"
+    [allowedExtensions]="[
+      'image/png',
+      'image/svg+xml'
+    ]">
+</vp-upload>

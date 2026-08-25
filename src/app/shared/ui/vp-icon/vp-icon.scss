@@ -1,0 +1,23 @@
+.vp-icon {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  line-height: 1;
+
+  user-select: none;
+
+  transition:
+    color 0.25s,
+    transform 0.25s;
+}
+
+.vp-icon--filled {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}

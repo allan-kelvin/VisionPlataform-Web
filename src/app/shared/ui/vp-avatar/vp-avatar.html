@@ -1,0 +1,31 @@
+<div class="vp-avatar" [class.vp-avatar--sm]="size==='sm'" [class.vp-avatar--md]="size==='md'"
+  [class.vp-avatar--lg]="size==='lg'" [class.vp-avatar--xl]="size==='xl'" [class.vp-avatar--border]="border">
+
+  @if(src && !imageError){
+
+  <img [src]="src" alt="Avatar" (error)="onImageError()">
+
+  }
+  @else if(initials){
+
+  <span class="vp-avatar__initials">
+
+    {{ initials }}
+
+  </span>
+
+  }
+  @else{
+
+  <vp-icon [name]="icon" [size]="24">
+  </vp-icon>
+
+  }
+
+  @if(online){
+
+  <span class="vp-avatar__status"></span>
+
+  }
+
+</div>S

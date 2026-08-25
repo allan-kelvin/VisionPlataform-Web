@@ -1,0 +1,130 @@
+.vp-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.vp-select__label {
+  display: flex;
+  gap: 4px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: var(--vp-text);
+}
+
+.vp-select__required {
+  color: var(--vp-danger);
+}
+
+.vp-select__wrapper {
+  display: flex;
+  align-items: center;
+
+  height: 52px;
+
+  border: 1px solid var(--vp-border);
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  transition: 0.25s;
+
+  cursor: pointer;
+}
+
+.vp-select__wrapper:hover {
+  border-color: #a8b5c7;
+}
+
+.vp-select__wrapper--error {
+  border-color: var(--vp-danger);
+}
+
+.vp-select__wrapper--disabled {
+  opacity: 0.6;
+
+  pointer-events: none;
+}
+
+.vp-select__icon {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+.vp-select__value {
+  flex: 1;
+  font-size: 15px;
+  color: var(--vp-text-secondary);
+}
+
+.vp-select__arrow {
+  margin-right: 16px;
+  color: #64748b;
+}
+
+/* ==============================================
+   DROPDOWN
+============================================== */
+
+.vp-select {
+  position: relative;
+}
+
+/* ==============================================
+   OPEN
+============================================== */
+
+.vp-select__wrapper--open {
+  border-color: var(--vp-primary);
+
+  box-shadow: 0 0 0 3px rgba(22, 217, 143, 0.18);
+}
+
+/* ==============================================
+   DROPDOWN
+============================================== */
+
+.vp-select__dropdown {
+  margin-top: 8px;
+
+  background: #fff;
+
+  border: 1px solid var(--vp-border);
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ==============================================
+   OPTION
+============================================== */
+
+.vp-select__option {
+  height: 48px;
+
+  padding: 0 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.vp-select__option:hover {
+  background: #f8fafc;
+}

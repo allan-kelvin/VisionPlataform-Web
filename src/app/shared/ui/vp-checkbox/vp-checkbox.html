@@ -1,0 +1,30 @@
+<label
+  class="vp-checkbox"
+  [class.vp-checkbox--disabled]="disabled">
+
+  <input
+    type="checkbox"
+    [checked]="checked"
+    [disabled]="disabled"
+    (change)="toggle()">
+
+  <span class="vp-checkbox__box">
+
+    @if (checked) {
+
+      <vp-icon
+        name="check"
+        [size]="14">
+      </vp-icon>
+
+    }
+
+  </span>
+
+  <span class="vp-checkbox__label">
+
+    {{ label }}
+
+  </span>
+
+</label>
