@@ -1,0 +1,147 @@
+@if (open) {
+
+  <div
+    class="confirm-dialog__backdrop"
+    (click)="onBackdropClick($event)">
+
+    <div
+      class="confirm-dialog"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="title">
+
+
+      <!-- ================================================= -->
+      <!-- FECHAR -->
+      <!-- ================================================= -->
+
+      <button
+        type="button"
+        class="confirm-dialog__close"
+        title="Fechar"
+        (click)="close()">
+
+        <vp-icon
+          name="close"
+          [size]="28">
+        </vp-icon>
+
+      </button>
+
+
+      <!-- ================================================= -->
+      <!-- ÍCONE -->
+      <!-- ================================================= -->
+
+      <div class="confirm-dialog__icon">
+
+        <vp-icon
+          [name]="icon"
+          [size]="58">
+        </vp-icon>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- TÍTULO -->
+      <!-- ================================================= -->
+
+      <h2>
+        {{ title }}
+      </h2>
+
+
+      <!-- ================================================= -->
+      <!-- MENSAGEM -->
+      <!-- ================================================= -->
+
+      <p class="confirm-dialog__message">
+
+        {{ message }}
+
+        @if (highlightText) {
+
+          <strong>
+            {{ highlightText }}
+          </strong>
+
+        }
+
+        ?
+
+      </p>
+
+
+      <!-- ================================================= -->
+      <!-- AVISO -->
+      <!-- ================================================= -->
+
+      @if (warningMessage) {
+
+        <div class="confirm-dialog__warning">
+
+          <div class="confirm-dialog__warning-icon">
+
+            <vp-icon
+              name="error"
+              [size]="28">
+            </vp-icon>
+
+          </div>
+
+          <span>
+            {{ warningMessage }}
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- AÇÕES -->
+      <!-- ================================================= -->
+
+      <div class="confirm-dialog__actions">
+
+        <button
+          type="button"
+          class="confirm-dialog__button confirm-dialog__button--cancel"
+          (click)="cancel()">
+
+          <vp-icon
+            name="close"
+            [size]="28">
+          </vp-icon>
+
+          <span>
+            {{ cancelText }}
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="confirm-dialog__button confirm-dialog__button--confirm"
+          (click)="confirm()">
+
+          <vp-icon
+            [name]="icon"
+            [size]="28">
+          </vp-icon>
+
+          <span>
+            {{ confirmText }}
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

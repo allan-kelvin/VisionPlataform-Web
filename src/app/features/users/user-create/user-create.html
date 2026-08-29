@@ -1,0 +1,398 @@
+<div class="user-create-page">
+
+  <!-- ========================================== -->
+  <!-- BREADCRUMB -->
+  <!-- ========================================== -->
+
+  <div class="user-create__breadcrumb">
+
+    <span>
+      Configurações
+    </span>
+
+    <vp-icon name="chevron_right" [size]="16">
+    </vp-icon>
+
+    <span>
+      Usuários
+    </span>
+
+    <vp-icon name="chevron_right" [size]="16">
+    </vp-icon>
+
+    <span class="active">
+      Cadastrar
+    </span>
+
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- HEADER -->
+  <!-- ========================================== -->
+
+  <div class="user-create__header">
+
+    <div class="user-create__title">
+
+      <div class="user-create__icon">
+
+        <vp-icon name="person_add" [size]="28">
+        </vp-icon>
+
+      </div>
+
+      <div>
+
+        <h1>
+          {{ editing ? 'Editar Usuário' : 'Cadastrar Usuário' }}
+        </h1>
+
+        <p>
+          {{
+          editing
+          ? 'Atualize os dados do usuário na plataforma.'
+          : 'Preencha os dados abaixo para criar um novo usuário na plataforma.'
+          }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- ERRO -->
+  <!-- ========================================== -->
+
+  @if (errorMessage) {
+
+  <div class="user-create__alert">
+
+    <vp-icon name="error" [size]="18">
+    </vp-icon>
+
+    <span>
+      {{ errorMessage }}
+    </span>
+
+  </div>
+
+  }
+
+
+  <!-- ========================================== -->
+  <!-- FORM -->
+  <!-- ========================================== -->
+
+  <form class="user-form" (ngSubmit)="save()">
+
+
+    <!-- ======================================== -->
+    <!-- PRIMEIRA LINHA -->
+    <!-- ======================================== -->
+
+    <div class="user-form__top">
+
+
+      <!-- FOTO -->
+
+      <div class="user-photo">
+
+        <label>
+          Foto do usuário
+        </label>
+
+        <label class="user-photo__upload">
+
+          <input type="file" accept="image/png,image/jpeg,image/webp" (change)="onPhotoSelected($event)" hidden>
+
+
+          @if (photoPreview) {
+
+          <img [src]="photoPreview" alt="Foto do usuário" class="user-photo__preview">
+
+          }
+
+          @else {
+
+          <div class="user-photo__icon">
+
+            <vp-icon name="photo_camera" [size]="36">
+            </vp-icon>
+
+          </div>
+
+          <strong>
+            Enviar foto
+          </strong>
+
+          <span>
+            JPG, PNG ou WEBP
+          </span>
+
+          <span>
+            Máx. 2MB
+          </span>
+
+          }
+
+        </label>
+
+      </div>
+
+
+      <!-- CAMPOS -->
+
+      <div class="user-form__fields">
+
+
+        <!-- NOME -->
+
+        <div class="form-field">
+
+          <label>
+            <vp-icon name="person" [size]="18">
+            </vp-icon>
+
+            Nome completo
+          </label>
+
+          <input type="text" name="nome" placeholder="Digite o nome completo" [(ngModel)]="nome">
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-field">
+
+          <label>
+
+            <vp-icon name="mail" [size]="18">
+            </vp-icon>
+
+            E-mail
+
+          </label>
+
+          <input type="email" name="email" placeholder="Digite o e-mail do usuário" [(ngModel)]="email">
+
+        </div>
+
+
+        <!-- CARGO -->
+
+        <div class="form-field">
+
+          <label>
+
+            <vp-icon name="business_center" [size]="18">
+            </vp-icon>
+
+            Cargo / Função
+
+          </label>
+
+          <div class="select-wrapper">
+
+            <select name="roleId" [(ngModel)]="roleId">
+
+              <option [ngValue]="null">
+                Selecione o cargo ou função
+              </option>
+
+              @for (role of roles; track role.id) {
+
+              <option [ngValue]="role.id">
+                {{ role.nome }}
+              </option>
+
+              }
+
+            </select>
+
+            <vp-icon name="expand_more" [size]="20">
+            </vp-icon>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
+    <!-- DIVISOR -->
+    <!-- ======================================== -->
+
+    <div class="user-form__divider"></div>
+
+
+    <!-- ======================================== -->
+    <!-- SENHAS -->
+    <!-- ======================================== -->
+
+    <div class="user-passwords">
+
+
+      <!-- SENHA -->
+
+      <div class="form-field">
+
+        <label>
+
+          <vp-icon name="lock" [size]="18">
+          </vp-icon>
+
+          Senha
+
+        </label>
+
+
+        <div class="password-wrapper">
+
+          <input [type]="showPassword ? 'text' : 'password'" name="senha" placeholder="Digite a senha"
+            [(ngModel)]="senha">
+
+          <button type="button" (click)="showPassword = !showPassword">
+
+            <vp-icon [name]="showPassword ? 'visibility_off' : 'visibility'" [size]="20">
+            </vp-icon>
+
+          </button>
+
+        </div>
+
+
+        <!-- FORÇA -->
+
+        <div class="password-strength">
+
+          <span>
+            Força da senha:
+          </span>
+
+          <div class="password-strength__bars">
+
+            @for (bar of [1,2,3,4,5]; track bar) {
+
+            <span [class.active]="bar <= passwordStrength">
+            </span>
+
+            }
+
+          </div>
+
+          <strong [class.password-strength__weak]="passwordStrength <= 1" [class.password-strength__medium]="
+              passwordStrength >= 2 &&
+              passwordStrength <= 3
+            " [class.password-strength__strong]="
+              passwordStrength >= 4
+            ">
+
+            {{ passwordStrengthText }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONFIRMAR SENHA -->
+
+      <div class="form-field">
+
+        <label>
+
+          <vp-icon name="lock" [size]="18">
+          </vp-icon>
+
+          Confirmar senha
+
+        </label>
+
+
+        <div class="password-wrapper">
+
+          <input [type]="
+              showConfirmPassword
+                ? 'text'
+                : 'password'
+            " name="confirmarSenha" placeholder="Digite a senha novamente" [(ngModel)]="confirmarSenha">
+
+          <button type="button" (click)="
+              showConfirmPassword =
+                !showConfirmPassword
+            ">
+
+            <vp-icon [name]="
+                showConfirmPassword
+                  ? 'visibility_off'
+                  : 'visibility'
+              " [size]="20">
+            </vp-icon>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
+    <!-- DICA DE SEGURANÇA -->
+    <!-- ======================================== -->
+
+    <div class="security-tip">
+
+      <vp-icon name="shield" [size]="24">
+      </vp-icon>
+
+      <div>
+
+        <strong>
+          Dica de segurança
+        </strong>
+
+        <span>
+          Use pelo menos 8 caracteres com letras
+          maiúsculas, minúsculas, números e símbolos.
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
+    <!-- AÇÕES -->
+    <!-- ======================================== -->
+
+    <div class="user-form__actions">
+
+      <vp-button type="button" variant="secondary" [fullWidth]="false" (click)="cancel()">
+
+        Cancelar
+
+      </vp-button>
+
+
+      <vp-button variant="primary" icon="check" iconPosition="left" [fullWidth]="false" (click)="save()">
+
+        {{ editing ? 'Salvar Alterações' : 'Salvar Usuário' }}
+
+      </vp-button>
+
+    </div>
+
+  </form>
+
+</div>

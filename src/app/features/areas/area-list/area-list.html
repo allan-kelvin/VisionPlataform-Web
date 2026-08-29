@@ -1,0 +1,497 @@
+<div class="areas-page">
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="areas-page__header">
+
+    <div class="areas-page__title">
+
+      <div class="areas-page__icon">
+
+        <vp-icon name="category" [size]="24">
+        </vp-icon>
+
+      </div>
+
+
+      <div class="areas-page__title-content">
+
+        <h1>
+          Áreas
+        </h1>
+
+        <p>
+          Gerencie as áreas cadastradas na plataforma.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <vp-button variant="primary" icon="add" iconPosition="left" [fullWidth]="false" (click)="newArea()">
+
+      Nova Área
+
+    </vp-button>
+
+  </header>
+
+
+
+  <!-- ===================================================== -->
+  <!-- FILTROS -->
+  <!-- ===================================================== -->
+
+  <section class="areas-filter">
+
+
+    <!-- ID -->
+
+    <div class="areas-filter__field">
+
+      <label for="area-id">
+        ID
+      </label>
+
+      <input id="area-id" type="number" placeholder="Buscar por ID" [(ngModel)]="idFilter">
+
+    </div>
+
+
+    <!-- DESCRIÇÃO -->
+
+    <div class="areas-filter__field">
+
+      <label for="area-description">
+        Descrição
+      </label>
+
+      <input id="area-description" type="text" placeholder="Buscar por descrição" [(ngModel)]="descriptionFilter">
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="areas-filter__field">
+
+      <label for="area-status">
+        Status
+      </label>
+
+      <select id="area-status" [(ngModel)]="statusFilter">
+
+        <option value="all">
+          Todos
+        </option>
+
+        <option value="active">
+          Ativos
+        </option>
+
+        <option value="inactive">
+          Inativos
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- AÇÕES -->
+
+    <div class="areas-filter__actions">
+
+      <vp-button variant="primary" icon="filter" iconPosition="left" [fullWidth]="false" (click)="filterAreas()">
+
+        Filtrar
+
+      </vp-button>
+
+
+      <button type="button" class="areas-filter__clear" (click)="clearFilters()">
+
+        <vp-icon name="refresh" [size]="16">
+        </vp-icon>
+
+        <span>
+          Limpar
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================== -->
+  <!-- ERRO -->
+  <!-- ===================================================== -->
+
+  @if (errorMessage) {
+
+  <div class="areas-alert">
+
+    <div class="areas-alert__content">
+
+      <vp-icon name="error" [size]="18">
+      </vp-icon>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+
+    <button type="button" class="areas-alert__retry" (click)="retry()">
+
+      Tentar novamente
+
+    </button>
+
+  </div>
+
+  }
+
+
+
+  <!-- ===================================================== -->
+  <!-- TOTAL -->
+  <!-- ===================================================== -->
+
+  <section class="areas-summary">
+
+    <div class="areas-summary__icon">
+
+      <vp-icon name="category" [size]="24">
+      </vp-icon>
+
+    </div>
+
+
+    <div>
+
+      <span>
+        Total de Áreas
+      </span>
+
+      <strong>
+        {{ areas.length }}
+      </strong>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================== -->
+  <!-- TABELA -->
+  <!-- ===================================================== -->
+
+  <section class="areas-table">
+
+
+    <!-- HEADER -->
+
+    <div class="areas-table__header">
+
+      <span>
+        ID
+      </span>
+
+      <span>
+        Área
+      </span>
+
+      <span>
+        Status
+      </span>
+
+      <span>
+        Ações
+      </span>
+
+    </div>
+
+
+
+    <!-- =================================================== -->
+    <!-- LOADING -->
+    <!-- =================================================== -->
+
+    @if (loading) {
+
+    <div class="areas-table__loading">
+
+      <span class="areas-table__spinner"></span>
+
+      <strong>
+        Carregando áreas...
+      </strong>
+
+      <span>
+        Aguarde enquanto buscamos as áreas.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- ÁREAS -->
+    <!-- =================================================== -->
+
+    @else if (filteredAreas.length > 0) {
+
+    @for (
+    area of paginatedAreas;
+    track area.id
+    ) {
+
+    <div class="areas-table__row">
+
+
+      <!-- ID -->
+
+      <span class="area-id">
+
+        {{ area.id }}
+
+      </span>
+
+
+      <!-- DESCRIÇÃO -->
+
+      <div class="area-info">
+
+        <div class="area-avatar">
+
+          {{ area.descricao.charAt(0).toUpperCase() }}
+
+        </div>
+
+
+        <div class="area-info__content">
+
+          <strong>
+            {{ area.descricao }}
+          </strong>
+
+          <span>
+            Área
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div class="area-status">
+
+        <span class="area-status__badge" [class.area-status__badge--active]="area.ativo"
+          [class.area-status__badge--inactive]="!area.ativo">
+
+          <span class="area-status__dot"></span>
+
+          {{ area.ativo ? 'Ativo' : 'Inativo' }}
+
+        </span>
+
+      </div>
+
+
+      <!-- AÇÕES -->
+
+      <div class="area-actions">
+
+
+        <!-- EDITAR -->
+
+        <button type="button" class="area-actions__button" title="Editar" (click)="editArea(area)">
+
+          <vp-icon name="edit" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- TOGGLE -->
+
+        <button type="button" class="area-toggle" [class.area-toggle--active]="area.ativo"
+          [attr.aria-label]="area.ativo ? 'Inativar área' : 'Ativar área'"
+          [title]="area.ativo ? 'Inativar área' : 'Ativar área'" (click)="toggleAreaStatus(area)">
+
+          <span class="area-toggle__track">
+
+            <span class="area-toggle__thumb"></span>
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- SEM RESULTADO -->
+    <!-- =================================================== -->
+
+    @else {
+
+    <div class="areas-table__empty">
+
+      <div class="areas-table__empty-icon">
+
+        <vp-icon name="category" [size]="30">
+        </vp-icon>
+
+      </div>
+
+
+      <strong>
+        Nenhuma área encontrada
+      </strong>
+
+
+      <span>
+        Tente alterar os filtros utilizados.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- PAGINAÇÃO -->
+    <!-- =================================================== -->
+
+    @if (
+    !loading &&
+    filteredAreas.length > 0
+    ) {
+
+    <div class="areas-pagination">
+
+
+      <span class="areas-pagination__info">
+
+        Mostrando
+
+        <strong>
+          {{ firstItem }}
+        </strong>
+
+        a
+
+        <strong>
+          {{ lastItem }}
+        </strong>
+
+        de
+
+        <strong>
+          {{ filteredAreas.length }}
+        </strong>
+
+        áreas
+
+      </span>
+
+
+      <div class="areas-pagination__buttons">
+
+
+        <!-- PRIMEIRA -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(1)" title="Primeira página">
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ANTERIOR -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)"
+          title="Página anterior">
+
+          <vp-icon name="chevron_left" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- PÁGINAS -->
+
+        @for (
+        page of pages;
+        track page
+        ) {
+
+        <button type="button" [class.active]="page === currentPage" (click)="goToPage(page)">
+
+          {{ page }}
+
+        </button>
+
+        }
+
+
+        <!-- PRÓXIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)"
+          title="Próxima página">
+
+          <vp-icon name="chevron_right" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ÚLTIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)"
+          title="Última página">
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+  </section>
+
+</div>

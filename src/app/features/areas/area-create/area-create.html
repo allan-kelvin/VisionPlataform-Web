@@ -1,0 +1,204 @@
+<div class="area-create-page">
+
+  <!-- ===================================================== -->
+  <!-- BREADCRUMB -->
+  <!-- ===================================================== -->
+
+  <div class="area-create__breadcrumb">
+
+    <span>
+      Configurações
+    </span>
+
+    <vp-icon
+      name="chevron_right"
+      [size]="18">
+    </vp-icon>
+
+    <span>
+      Áreas
+    </span>
+
+    <vp-icon
+      name="chevron_right"
+      [size]="18">
+    </vp-icon>
+
+    <strong>
+      Cadastrar
+    </strong>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="area-create__header">
+
+    <div class="area-create__title">
+
+      <div class="area-create__icon">
+
+        <vp-icon
+          name="category"
+          [size]="28">
+        </vp-icon>
+
+      </div>
+
+
+      <div>
+
+        <h1>
+          Cadastrar Área
+        </h1>
+
+        <p>
+          Preencha os dados abaixo para cadastrar uma nova área.
+        </p>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ===================================================== -->
+  <!-- FORMULÁRIO -->
+  <!-- ===================================================== -->
+
+  <section class="area-create__card">
+
+
+    <!-- =================================================== -->
+    <!-- DESCRIÇÃO -->
+    <!-- =================================================== -->
+
+    <div class="area-create__field">
+
+      <label for="area-description">
+        Descrição
+      </label>
+
+
+      <div class="area-create__input-wrapper">
+
+        <vp-icon
+          name="category"
+          [size]="22">
+        </vp-icon>
+
+
+        <input
+          id="area-description"
+          type="text"
+          placeholder="Digite a descrição da área"
+          [(ngModel)]="descricao"
+          [disabled]="loading"
+          maxlength="150">
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- STATUS -->
+    <!-- =================================================== -->
+
+    <div class="area-create__status">
+
+      <div class="area-create__status-content">
+
+        <strong>
+          Status
+        </strong>
+
+        <span>
+          {{ ativo ? 'Área ativa' : 'Área inativa' }}
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="area-create__toggle"
+        [class.area-create__toggle--active]="ativo"
+        [attr.aria-pressed]="ativo"
+        [disabled]="loading"
+        (click)="ativo = !ativo">
+
+        <span class="area-create__toggle-thumb"></span>
+
+      </button>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- DIVISOR -->
+    <!-- =================================================== -->
+
+    <div class="area-create__divider"></div>
+
+
+    <!-- =================================================== -->
+    <!-- MENSAGEM DE ERRO -->
+    <!-- =================================================== -->
+
+    @if (errorMessage) {
+
+      <div class="area-create__error">
+
+        <vp-icon
+          name="error"
+          [size]="18">
+        </vp-icon>
+
+        <span>
+          {{ errorMessage }}
+        </span>
+
+      </div>
+
+    }
+
+
+    <!-- =================================================== -->
+    <!-- AÇÕES -->
+    <!-- =================================================== -->
+
+    <div class="area-create__actions">
+
+      <vp-button
+        variant="secondary"
+        [fullWidth]="false"
+        [disabled]="loading"
+        (click)="cancel()">
+
+        Cancelar
+
+      </vp-button>
+
+
+      <vp-button
+        variant="primary"
+        icon="check"
+        iconPosition="left"
+        [fullWidth]="false"
+        [disabled]="loading"
+        (click)="save()">
+
+        {{ loading ? 'Salvando...' : 'Salvar Área' }}
+
+      </vp-button>
+
+    </div>
+
+  </section>
+
+</div>

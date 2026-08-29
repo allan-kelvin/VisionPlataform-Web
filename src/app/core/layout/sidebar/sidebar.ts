@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { VpIcon } from '../../../shared/ui/vp-icon/vp-icon';
 import { SidebarGroup } from './models/sidebar-group.interface';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, VpIcon],
+  imports: [
+    CommonModule,
+    VpIcon,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,20 +20,54 @@ import { SidebarGroup } from './models/sidebar-group.interface';
 export class Sidebar {
   menu: SidebarGroup[] = [
 
+    // ==========================================
+    // DASHBOARD
+    // ==========================================
+
     {
       title: 'Dashboard',
 
       expanded: true,
 
       items: [
+
         {
           title: 'Dashboard',
           icon: 'dashboard',
-          route: '/dashboard',
-          active: true
+          route: '/dashboard'
         }
+
+      ]
+
+    },
+
+    //CADASTROS
+    {
+      title: 'Cadastros',
+
+      expanded: true,
+
+      items: [
+
+        {
+          title: 'Clientes',
+          icon: 'group',
+          route: '/clients'
+        },
+
+        {
+          title: 'Áreas',
+          icon: 'business',
+          route: '/areas'
+        }
+
       ]
     },
+
+
+    // ==========================================
+    // PLANEJAMENTO
+    // ==========================================
 
     {
       title: 'Planejamento',
@@ -55,7 +95,13 @@ export class Sidebar {
         }
 
       ]
+
     },
+
+
+    // ==========================================
+    // QUALIDADE
+    // ==========================================
 
     {
       title: 'Qualidade',
@@ -71,7 +117,13 @@ export class Sidebar {
         }
 
       ]
+
     },
+
+
+    // ==========================================
+    // DEV & RELEASE
+    // ==========================================
 
     {
       title: 'Dev & Release',
@@ -93,7 +145,13 @@ export class Sidebar {
         }
 
       ]
+
     },
+
+
+    // ==========================================
+    // DOCUMENTAÇÃO
+    // ==========================================
 
     {
       title: 'Documentação',
@@ -109,7 +167,13 @@ export class Sidebar {
         }
 
       ]
+
     },
+
+
+    // ==========================================
+    // CONFIGURAÇÕES
+    // ==========================================
 
     {
       title: 'Configurações',
@@ -137,28 +201,29 @@ export class Sidebar {
         }
 
       ]
+
     }
+
   ];
 
+
+  // ==========================================
+  // ABRIR / FECHAR GRUPO
+  // ==========================================
+
   toggle(group: SidebarGroup): void {
+
     this.menu.forEach(g => {
+
       if (g !== group) {
+
         g.expanded = false;
+
       }
+
     });
+
     group.expanded = !group.expanded;
-
-  }
-
-  select(item: any): void {
-
-    this.menu.forEach(group => {
-
-      group.items.forEach(i => i.active = false);
-
-    });
-
-    item.active = true;
 
   }
 }

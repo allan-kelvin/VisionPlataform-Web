@@ -1,0 +1,340 @@
+// =========================================================
+// PAGE
+// =========================================================
+
+.client-create-page {
+  width: 100%;
+
+  padding: 32px 36px 48px;
+
+  box-sizing: border-box;
+}
+
+// =========================================================
+// BREADCRUMB
+// =========================================================
+
+.client-create__breadcrumb {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 22px;
+
+  color: #94a3b8;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  vp-icon {
+    color: #94a3b8;
+  }
+
+  strong {
+    color: #0f172a;
+
+    font-weight: 500;
+  }
+}
+
+// =========================================================
+// HEADER
+// =========================================================
+
+.client-create__header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 32px;
+}
+
+.client-create__title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.client-create__icon {
+  width: 64px;
+
+  height: 64px;
+
+  border-radius: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #e5f9f2;
+
+  color: #00c987;
+
+  flex-shrink: 0;
+}
+
+.client-create__title-content {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.client-create__title h1 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.client-create__title p {
+  margin: 7px 0 0;
+
+  color: #64748b;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+// =========================================================
+// CARD
+// =========================================================
+
+.client-create__card {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 40px 32px 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+// =========================================================
+// FORM
+// =========================================================
+
+.client-create__field {
+  width: 70%;
+}
+
+.client-create__field label,
+.client-create__status > label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #0f172a;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+// =========================================================
+// INPUT
+// =========================================================
+
+.client-create__input-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: 54px;
+
+  display: flex;
+
+  align-items: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dbe3ed;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.client-create__input-wrapper vp-icon {
+  margin-left: 16px;
+
+  color: #94a3b8;
+
+  flex-shrink: 0;
+}
+
+.client-create__input-wrapper input {
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0 16px 0 12px;
+
+  border: 0;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #0f172a;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  box-sizing: border-box;
+}
+
+.client-create__input-wrapper input::placeholder {
+  color: #94a3b8;
+}
+
+.client-create__input-wrapper:focus-within {
+  border-color: #16d98f;
+
+  box-shadow: 0 0 0 3px rgba(22, 217, 143, 0.1);
+}
+
+// =========================================================
+// DIVIDER
+// =========================================================
+
+.client-create__divider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 38px 0 30px;
+
+  background: #e8edf3;
+}
+
+// =========================================================
+// ERROR
+// =========================================================
+
+.client-create__error {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-bottom: 24px;
+
+  padding: 12px 16px;
+
+  border: 1px solid #fecaca;
+
+  border-radius: 8px;
+
+  background: #fef2f2;
+
+  color: #dc2626;
+
+  font-size: 14px;
+}
+
+.client-create__error vp-icon {
+  flex-shrink: 0;
+}
+
+// =========================================================
+// ACTIONS
+// =========================================================
+
+.client-create__actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  gap: 14px;
+
+  width: 100%;
+}
+
+// =========================================================
+// RESPONSIVIDADE
+// =========================================================
+
+@media (max-width: 1000px) {
+  .client-create-page {
+    padding: 24px;
+  }
+
+  .client-create__field {
+    width: 100%;
+  }
+
+  .client-create__status {
+    position: static;
+
+    margin: 24px 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .client-create-page {
+    padding: 18px;
+  }
+
+  .client-create__title {
+    align-items: flex-start;
+  }
+
+  .client-create__icon {
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 14px;
+  }
+
+  .client-create__title h1 {
+    font-size: 24px;
+  }
+
+  .client-create__title p {
+    font-size: 13px;
+  }
+
+  .client-create__card {
+    padding: 24px 20px;
+  }
+
+  .client-create__actions {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+}

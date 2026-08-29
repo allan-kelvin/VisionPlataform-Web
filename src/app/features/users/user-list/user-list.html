@@ -1,0 +1,504 @@
+<div class="users-page">
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="users-page__header">
+
+    <div class="users-page__title">
+
+      <div class="users-page__icon">
+
+        <vp-icon name="group" [size]="24">
+        </vp-icon>
+
+      </div>
+
+      <div class="users-page__title-content">
+
+        <h1>
+          Usuários
+        </h1>
+
+        <p>
+          Gerencie os usuários e suas permissões de acesso à plataforma.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <vp-button variant="primary" icon="add" iconPosition="left" [fullWidth]="false" (click)="newUser()">
+      Novo Usuário
+    </vp-button>
+
+  </header>
+
+
+  <!-- ===================================================== -->
+  <!-- FILTROS -->
+  <!-- ===================================================== -->
+
+  <section class="users-filter">
+
+    <!-- ID -->
+
+    <div class="users-filter__field">
+
+      <label for="user-id">
+        ID
+      </label>
+
+      <input id="user-id" type="number" placeholder="ID do usuário" [(ngModel)]="idFilter">
+
+    </div>
+
+
+    <!-- NOME -->
+
+    <div class="users-filter__field">
+
+      <label for="user-name">
+        Nome
+      </label>
+
+      <input id="user-name" type="text" placeholder="Digite o nome" [(ngModel)]="nameFilter">
+
+    </div>
+
+
+    <!-- CARGO -->
+
+    <div class="users-filter__field">
+
+      <label for="user-role">
+        Cargo
+      </label>
+
+      <select id="user-role" class="users-filter__select" [(ngModel)]="roleFilter">
+
+        <option [ngValue]="null">
+          Todos os cargos
+        </option>
+
+        @for (role of roles; track role.id) {
+
+        <option [ngValue]="role.id">
+          {{ role.nome }}
+        </option>
+
+        }
+
+      </select>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="users-filter__field">
+
+      <label for="user-status">
+        Status
+      </label>
+
+      <select id="user-status" class="users-filter__select" [(ngModel)]="statusFilter">
+
+        <option [ngValue]="null">
+          Todos
+        </option>
+
+        <option [ngValue]="true">
+          Ativo
+        </option>
+
+        <option [ngValue]="false">
+          Inativo
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- AÇÕES -->
+
+    <div class="users-filter__actions">
+
+      <vp-button variant="primary" icon="filter" iconPosition="left" [fullWidth]="false" (click)="filterUsers()">
+
+        Filtrar
+
+      </vp-button>
+
+
+      <button type="button" class="users-filter__clear" (click)="clearFilters()">
+
+        <vp-icon name="refresh" [size]="16">
+        </vp-icon>
+
+        <span>
+          Limpar filtros
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- ERRO -->
+  <!-- ===================================================== -->
+
+  @if (errorMessage) {
+
+  <div class="users-alert">
+
+    <div class="users-alert__content">
+
+      <vp-icon name="error" [size]="18">
+      </vp-icon>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+    <button type="button" class="users-alert__retry" (click)="retry()">
+
+      Tentar novamente
+
+    </button>
+
+  </div>
+
+  }
+
+
+  <!-- ===================================================== -->
+  <!-- TABELA -->
+  <!-- ===================================================== -->
+
+  <section class="users-table">
+
+
+    <!-- HEADER DA TABELA -->
+
+    <div class="users-table__header">
+
+      <span>
+        ID
+      </span>
+
+      <span>
+        Nome
+      </span>
+
+      <span>
+        Cargo
+      </span>
+
+      <span>
+        Status
+      </span>
+
+      <span>
+        Ações
+      </span>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- LOADING -->
+    <!-- =================================================== -->
+
+    @if (loading) {
+
+    <div class="users-table__loading">
+
+      <span class="users-table__spinner"></span>
+
+      <strong>
+        Carregando usuários...
+      </strong>
+
+      <span>
+        Aguarde enquanto buscamos os usuários.
+      </span>
+
+    </div>
+
+    }
+
+
+    <!-- =================================================== -->
+    <!-- USUÁRIOS -->
+    <!-- =================================================== -->
+
+    @else if (filteredUsers.length > 0) {
+
+    @for(user of paginatedUsers; track user.id){
+
+    <div class="users-table__row">
+
+
+      <!-- ID -->
+
+      <span class="user-id">
+
+        {{ user.id }}
+
+      </span>
+
+
+      <!-- USUÁRIO -->
+
+      <div class="user-info">
+
+        <div class="user-avatar">
+
+          {{ user.nome.charAt(0).toUpperCase() }}
+
+        </div>
+
+        <div class="user-info__content">
+
+          <strong>
+            {{ user.nome }}
+          </strong>
+
+          <span>
+            {{ user.email }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- CARGO -->
+
+      <div class="user-role">
+
+        <span class="user-role__badge">
+
+          <vp-icon name="shield" [size]="14">
+          </vp-icon>
+
+          <span>
+            {{ user.role }}
+          </span>
+
+        </span>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div>
+
+        @if (user.ativo) {
+
+        <span class="user-status user-status--active">
+
+          <span class="user-status__dot"></span>
+
+          Ativo
+
+        </span>
+
+        }
+
+        @else {
+
+        <span class="user-status user-status--inactive">
+
+          <span class="user-status__dot"></span>
+
+          Inativo
+
+        </span>
+
+        }
+
+      </div>
+
+
+      <!-- AÇÕES -->
+
+      <div class="user-actions">
+
+        <!-- EDITAR -->
+
+        <button type="button" title="Editar" (click)="editUser(user)">
+
+          <vp-icon name="edit" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ATIVAR / DESATIVAR -->
+
+        @if (user.ativo) {
+
+        <button type="button" class="action-button--danger" title="Desativar" (click)="toggleUserStatus(user)">
+
+          <vp-icon name="delete" [size]="16">
+          </vp-icon>
+
+        </button>
+
+        }
+
+        @else {
+
+        <button type="button" class="action-button--success" title="Ativar" (click)="toggleUserStatus(user)">
+
+          <vp-icon name="refresh" [size]="16">
+          </vp-icon>
+
+        </button>
+
+        }
+
+      </div>
+
+    </div>
+
+    }
+
+    }
+
+
+    <!-- =================================================== -->
+    <!-- SEM RESULTADO -->
+    <!-- =================================================== -->
+
+    @else {
+
+    <div class="users-table__empty">
+
+      <div class="users-table__empty-icon">
+
+        <vp-icon name="group" [size]="30">
+        </vp-icon>
+
+      </div>
+
+      <strong>
+        Nenhum usuário encontrado
+      </strong>
+
+      <span>
+        Tente alterar os filtros utilizados.
+      </span>
+
+    </div>
+
+    }
+
+    <!-- PAGINAÇÃO -->
+
+    @if (!loading && filteredUsers.length > 0) {
+
+    <div class="users-pagination">
+
+      <span class="users-pagination__info">
+
+        Mostrando
+        <strong>
+          {{ firstItem }}
+        </strong>
+        a
+        <strong>
+          {{ lastItem }}
+        </strong>
+        de
+        <strong>
+          {{ filteredUsers.length }}
+        </strong>
+        usuários
+
+      </span>
+
+
+      <div class="users-pagination__buttons">
+
+        <!-- PRIMEIRA -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(1)" title="Primeira página">
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ANTERIOR -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)"
+          title="Página anterior">
+
+          <vp-icon name="chevron_left" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- PÁGINAS -->
+
+        @for (page of pages; track page) {
+
+        <button type="button" [class.active]="page === currentPage" (click)="goToPage(page)">
+
+          {{ page }}
+
+        </button>
+
+        }
+
+
+        <!-- PRÓXIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)"
+          title="Próxima página">
+
+          <vp-icon name="chevron_right" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ÚLTIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)"
+          title="Última página">
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+  </section>
+
+</div>

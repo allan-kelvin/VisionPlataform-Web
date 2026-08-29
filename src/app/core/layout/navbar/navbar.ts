@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { VpAvatar } from '../../../shared/ui/vp-avatar/vp-avatar';
 import { VpIcon } from '../../../shared/ui/vp-icon/vp-icon';
 import { AuthService } from '../../auth/services/auth.service';
 
@@ -10,7 +9,6 @@ import { AuthService } from '../../auth/services/auth.service';
   imports: [
     CommonModule,
     VpIcon,
-    VpAvatar,
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
