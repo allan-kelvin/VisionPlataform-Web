@@ -1,0 +1,178 @@
+<div class="client-create-page">
+
+  <!-- ===================================================== -->
+  <!-- BREADCRUMB -->
+  <!-- ===================================================== -->
+
+  <div class="client-create__breadcrumb">
+
+    <span>
+      Configurações
+    </span>
+
+    <vp-icon
+      name="chevron_right"
+      [size]="18">
+    </vp-icon>
+
+    <span>
+      Clientes
+    </span>
+
+    <vp-icon
+      name="chevron_right"
+      [size]="18">
+    </vp-icon>
+
+    <strong>
+       {{ isEditMode ? 'Editar' : 'Cadastrar' }}
+    </strong>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="client-create__header">
+
+    <div class="client-create__title">
+
+      <div class="client-create__icon">
+
+        <vp-icon
+          name="person_add"
+          [size]="28">
+        </vp-icon>
+
+      </div>
+
+
+      <div>
+
+        <h1>
+          {{ isEditMode ? 'Editar Cliente' : 'Cadastrar Cliente' }}
+        </h1>
+
+        <p>
+  {{
+    isEditMode
+      ? 'Altere os dados do cliente abaixo.'
+      : 'Preencha os dados abaixo para cadastrar um novo cliente.'
+  }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ===================================================== -->
+  <!-- FORMULÁRIO -->
+  <!-- ===================================================== -->
+
+  <section class="client-create__card">
+
+
+    <!-- =================================================== -->
+    <!-- NOME -->
+    <!-- =================================================== -->
+
+    <div class="client-create__field">
+
+      <label for="client-name">
+        Nome
+      </label>
+
+
+      <div class="client-create__input-wrapper">
+
+        <vp-icon
+          name="person"
+          [size]="22">
+        </vp-icon>
+
+
+        <input
+          id="client-name"
+          type="text"
+          placeholder="Digite o nome do cliente"
+          [(ngModel)]="nome"
+          [disabled]="loading"
+          maxlength="150">
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- DIVISOR -->
+    <!-- =================================================== -->
+
+    <div class="client-create__divider"></div>
+
+
+    <!-- =================================================== -->
+    <!-- MENSAGEM DE ERRO -->
+    <!-- =================================================== -->
+
+    @if (errorMessage) {
+
+      <div class="client-create__error">
+
+        <vp-icon
+          name="error"
+          [size]="18">
+        </vp-icon>
+
+        <span>
+          {{ errorMessage }}
+        </span>
+
+      </div>
+
+    }
+
+
+    <!-- =================================================== -->
+    <!-- AÇÕES -->
+    <!-- =================================================== -->
+
+    <div class="client-create__actions">
+
+      <vp-button
+        variant="secondary"
+        [fullWidth]="false"
+        [disabled]="loading"
+        (click)="cancel()">
+
+        Cancelar
+
+      </vp-button>
+
+
+      <vp-button
+        variant="primary"
+        icon="check"
+        iconPosition="left"
+        [fullWidth]="false"
+        [disabled]="loading"
+        (click)="save()">
+
+         {{
+    loading
+      ? (isEditMode ? 'Salvando...' : 'Salvando...')
+      : (isEditMode ? 'Salvar Alterações' : 'Salvar Cliente')
+  }}
+
+      </vp-button>
+
+    </div>
+
+  </section>
+
+</div>

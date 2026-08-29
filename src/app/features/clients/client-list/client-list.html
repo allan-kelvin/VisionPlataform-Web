@@ -1,0 +1,472 @@
+<div class="clients-page">
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="clients-page__header">
+
+    <div class="clients-page__title">
+
+      <div class="clients-page__icon">
+
+        <vp-icon name="group" [size]="24">
+        </vp-icon>
+
+      </div>
+
+      <div class="clients-page__title-content">
+
+        <h1>
+          Clientes
+        </h1>
+
+        <p>
+          Gerencie seus clientes cadastrados na plataforma.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <vp-button variant="primary" icon="add" iconPosition="left" [fullWidth]="false" (click)="newClient()">
+
+      Novo Cliente
+
+    </vp-button>
+
+  </header>
+
+
+
+  <!-- ===================================================== -->
+  <!-- FILTRO -->
+  <!-- ===================================================== -->
+
+  <section class="clients-filter">
+
+    <!-- =================================================== -->
+    <!-- ID -->
+    <!-- =================================================== -->
+
+    <div class="clients-filter__field">
+
+      <label for="client-id">
+        ID
+      </label>
+
+      <input id="client-id" type="number" placeholder="Buscar por ID" [(ngModel)]="idFilter">
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- NOME -->
+    <!-- =================================================== -->
+
+    <div class="clients-filter__field">
+
+      <label for="client-name">
+        Nome
+      </label>
+
+      <input id="client-name" type="text" placeholder="Buscar por nome" [(ngModel)]="nameFilter">
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- AÇÕES -->
+    <!-- =================================================== -->
+
+    <div class="clients-filter__actions">
+
+      <vp-button variant="primary" icon="filter" iconPosition="left" [fullWidth]="false" (click)="filterClients()">
+
+        Filtrar
+
+      </vp-button>
+
+
+      <button type="button" class="clients-filter__clear" (click)="clearFilters()">
+
+        <vp-icon name="refresh" [size]="16">
+        </vp-icon>
+
+        <span>
+          Limpar
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================== -->
+  <!-- ERRO -->
+  <!-- ===================================================== -->
+
+  @if (errorMessage) {
+
+  <div class="clients-alert">
+
+    <div class="clients-alert__content">
+
+      <vp-icon name="error" [size]="18">
+      </vp-icon>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+
+    <button type="button" class="clients-alert__retry" (click)="retry()">
+
+      Tentar novamente
+
+    </button>
+
+  </div>
+
+  }
+
+
+
+  <!-- ===================================================== -->
+  <!-- RESUMO -->
+  <!-- ===================================================== -->
+
+  <section class="clients-summary">
+
+    <div class="clients-summary__icon">
+
+      <vp-icon name="group" [size]="24">
+      </vp-icon>
+
+    </div>
+
+    <div>
+
+      <span>
+        Total de Clientes
+      </span>
+
+      <strong>
+        {{ clients.length }}
+      </strong>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================== -->
+  <!-- TABELA -->
+  <!-- ===================================================== -->
+
+  <section class="clients-table">
+
+
+    <!-- HEADER -->
+
+    <div class="clients-table__header">
+
+      <span>
+        ID
+      </span>
+
+      <span>
+        Cliente
+      </span>
+
+      <span>
+        Ações
+      </span>
+
+    </div>
+
+
+
+    <!-- =================================================== -->
+    <!-- LOADING -->
+    <!-- =================================================== -->
+
+    @if (loading) {
+
+    <div class="clients-table__loading">
+
+      <span class="clients-table__spinner"></span>
+
+      <strong>
+        Carregando clientes...
+      </strong>
+
+      <span>
+        Aguarde enquanto buscamos os clientes.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- CLIENTES -->
+    <!-- =================================================== -->
+
+    @else if (filteredClients.length > 0) {
+
+    @for (
+    client of paginatedClients;
+    track client.id
+    ) {
+
+    <div class="clients-table__row">
+
+
+      <!-- ID -->
+
+      <span class="client-id">
+
+        {{ client.id }}
+
+      </span>
+
+
+      <!-- CLIENTE -->
+
+      <div class="client-info">
+
+        <div class="client-avatar">
+
+          {{ client.nome.charAt(0).toUpperCase() }}
+
+        </div>
+
+
+        <div class="client-info__content">
+
+          <strong>
+            {{ client.nome }}
+          </strong>
+
+          <span>
+            Cliente
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- AÇÕES -->
+
+      <div class="client-actions">
+
+        <!-- EDITAR -->
+
+        <button type="button" class="client-actions__button" title="Editar" (click)="editClient(client)">
+
+          <vp-icon name="edit" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- EXCLUIR -->
+
+        <button type="button" class="client-actions__button client-actions__button--danger" title="Excluir"
+          (click)="openDeleteModal(client)">
+
+          <vp-icon name="delete" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- SEM RESULTADO -->
+    <!-- =================================================== -->
+
+    @else {
+
+    <div class="clients-table__empty">
+
+      <div class="clients-table__empty-icon">
+
+        <vp-icon name="group" [size]="30">
+        </vp-icon>
+
+      </div>
+
+      <strong>
+        Nenhum cliente encontrado
+      </strong>
+
+      <span>
+        Tente alterar o filtro utilizado.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- PAGINAÇÃO -->
+    <!-- =================================================== -->
+
+    @if (
+    !loading &&
+    filteredClients.length > 0
+    ) {
+
+    <div class="clients-pagination">
+
+
+      <span class="clients-pagination__info">
+
+        Mostrando
+
+        <strong>
+          {{ firstItem }}
+        </strong>
+
+        a
+
+        <strong>
+          {{ lastItem }}
+        </strong>
+
+        de
+
+        <strong>
+          {{ filteredClients.length }}
+        </strong>
+
+        clientes
+
+      </span>
+
+
+      <div class="clients-pagination__buttons">
+
+
+        <!-- PRIMEIRA -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(1)" title="Primeira página">
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ANTERIOR -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)"
+          title="Página anterior">
+
+          <vp-icon name="chevron_left" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- PÁGINAS -->
+
+        @for (
+        page of pages;
+        track page
+        ) {
+
+        <button type="button" [class.active]="page === currentPage" (click)="goToPage(page)">
+
+          {{ page }}
+
+        </button>
+
+        }
+
+
+        <!-- PRÓXIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)"
+          title="Próxima página">
+
+          <vp-icon name="chevron_right" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ÚLTIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)"
+          title="Última página">
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+  </section>
+
+<!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+
+<vp-confirm-dialog
+  [open]="deleteModalOpen"
+
+  title="Excluir cliente"
+
+  message="Deseja realmente excluir o cliente"
+
+  [highlightText]="selectedClient?.nome ?? ''"
+
+  warningMessage="Esta ação não poderá ser desfeita."
+
+  confirmText="Excluir"
+
+  cancelText="Cancelar"
+
+  icon="delete"
+
+  (confirmed)="confirmDeleteClient()"
+
+  (cancelled)="closeDeleteModal()"
+
+  (closed)="closeDeleteModal()">
+</vp-confirm-dialog>
+
+</div>
