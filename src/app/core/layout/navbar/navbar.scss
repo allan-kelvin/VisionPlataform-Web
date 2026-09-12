@@ -1,5 +1,5 @@
 .navbar {
-  height: 58px;
+  height: 85px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,23 +16,16 @@
 // =====================================================
 
 .navbar__search {
-  width: 270px;
+  width: 600px;
   height: 36px;
-
   display: flex;
   align-items: center;
   gap: 8px;
-
   padding: 0 10px;
-
   background: #101f32;
-
   border: 1px solid #1d344c;
-
   border-radius: 8px;
-
   color: #ffffff;
-
   box-sizing: border-box;
 }
 
@@ -154,33 +147,21 @@
 
 .navbar__user {
   position: relative;
-
   margin-left: 8px;
-
   padding-left: 10px;
-
   border-left: 1px solid var(--vp-border);
 }
 
 .navbar__user-button {
   height: 44px;
-
   display: flex;
-
   align-items: center;
-
   gap: 9px;
-
   padding: 4px 8px;
-
   border: none;
-
   background: transparent;
-
   color: var(--vp-text);
-
   cursor: pointer;
-
   border-radius: 8px;
 }
 

@@ -1,0 +1,413 @@
+@if (version) {
+
+<div class="modal-backdrop" (click)="closeModal()">
+
+  <div class="modal-container" (click)="$event.stopPropagation()">
+
+    <!-- ====================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ====================================== -->
+
+    <header class="modal-header">
+
+      <div class="modal-title">
+
+        <div class="modal-icon">
+          <span>▣</span>
+        </div>
+
+        <h2>
+          Nova Tarefa
+          <span>
+            para Versão {{ version.numeroVersao }}
+          </span>
+        </h2>
+
+      </div>
+
+
+      <button type="button" class="close-button" (click)="closeModal()">
+        ×
+      </button>
+
+    </header>
+
+
+    <!-- ====================================== -->
+    <!-- FORMULÁRIO -->
+    <!-- ====================================== -->
+
+    <form class="task-form" (ngSubmit)="save()">
+
+      <!-- ================================== -->
+      <!-- AZURE -->
+      <!-- ================================== -->
+
+      <div class="form-row">
+
+        <!-- AZURE ID -->
+
+        <div class="form-group">
+
+          <label>
+            Azure Task ID
+          </label>
+
+          <input type="number" name="azureTaskId" [(ngModel)]="form.azureTaskId" (ngModelChange)="onAzureTaskIdChange()"
+            placeholder="Ex.: 45280" min="1" />
+
+        </div>
+
+
+        <!-- AZURE URL -->
+
+        <div class="form-group">
+
+          <label>
+            Azure Task URL
+          </label>
+
+          <div class="input-with-icon">
+
+            <input type="text" name="azureTaskUrl" [(ngModel)]="form.azureTaskUrl" placeholder="Gerado automaticamente"
+              readonly [class.has-link]="!!form.azureTaskUrl" />
+
+            @if (form.azureTaskUrl) {
+
+            <button type="button" class="external-link-button" title="Abrir tarefa no Azure" (click)="openAzureTask()">
+              ↗
+            </button>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- TÍTULO -->
+      <!-- ================================== -->
+
+      <div class="form-group">
+
+        <label>
+          Título
+        </label>
+
+        <input type="text" name="titulo" [(ngModel)]="form.titulo" placeholder="Digite o título da tarefa" />
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- CLIENTE / ÁREA -->
+      <!-- ================================== -->
+
+      <div class="form-row">
+
+        <!-- CLIENTE -->
+
+        <div class="form-group">
+
+          <label>
+            Cliente
+          </label>
+
+          <select name="clienteId" [(ngModel)]="form.clienteId">
+
+            <option [ngValue]="null">
+              Selecione o cliente
+            </option>
+
+            @for (
+            cliente of clientes;
+            track cliente.id
+            ) {
+
+            <option [ngValue]="cliente.id">
+              {{ cliente.nome }}
+            </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- ÁREA -->
+
+        <div class="form-group">
+
+          <label>
+            Área
+          </label>
+
+          <select name="areaId" [(ngModel)]="form.areaId">
+
+            <option [ngValue]="null">
+              Selecione a área
+            </option>
+
+            @for (area of areas; track area.id) {
+
+            <option [ngValue]="area.id">
+              {{ area.descricao }}
+            </option>
+
+            }
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- TIPO / STATUS -->
+      <!-- ================================== -->
+
+      <div class="form-row">
+
+        <!-- TIPO -->
+
+        <div class="form-group">
+
+          <label>
+            Tipo
+          </label>
+
+          <select name="tipo" [(ngModel)]="form.tipo">
+
+            @for (
+            tipo of tipos;
+            track tipo.id
+            ) {
+
+            <option [ngValue]="tipo.id">
+              {{ tipo.nome }}
+            </option>
+
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+          <label>
+            Status
+          </label>
+
+          <select name="statusPlanejamento" [(ngModel)]="form.statusPlanejamento">
+
+            @for (
+            status of status;
+            track status.id
+            ) {
+
+            <option [ngValue]="status.id">
+              {{ status.nome }}
+            </option>
+
+            }
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- QA -->
+      <!-- ================================== -->
+
+      <div class="form-group">
+
+        <label>
+          QA
+        </label>
+
+        <select name="qaUserId" [(ngModel)]="form.qaUserId">
+
+          <option [ngValue]="null">
+            Selecione o QA
+          </option>
+
+          @for (usuario of usuariosQa; track usuario.id) {
+
+          <option [ngValue]="usuario.id">
+            {{ usuario.nome }}
+          </option>
+
+          }
+
+        </select>
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- MERGE -->
+      <!-- ================================== -->
+
+      <div class="switch-section">
+
+        <div class="switch-line">
+
+          <label>
+            Merge Realizado
+          </label>
+
+          <label class="switch">
+
+            <input type="checkbox" name="mergeRealizado" [(ngModel)]="form.mergeRealizado" />
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+
+        @if (form.mergeRealizado) {
+
+        <div class="form-group">
+
+          <label>
+            Data Merge
+          </label>
+
+          <input type="date" name="dataMerge" [(ngModel)]="form.dataMerge" />
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- POSSUI SCRIPT -->
+      <!-- ================================== -->
+      <div class="switch-section">
+
+        <div class="switch-line">
+
+          <label>
+            Possui Script
+          </label>
+
+          <div class="binary-options">
+
+            <label class="binary-option">
+
+              <input type="radio" name="possuiScript" [value]="true" [(ngModel)]="form.possuiScript" />
+
+              <span>
+                Sim
+              </span>
+
+            </label>
+
+
+            <label class="binary-option">
+
+              <input type="radio" name="possuiScript" [value]="false" [(ngModel)]="form.possuiScript" />
+
+              <span>
+                Não
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- TAG -->
+      <!-- ================================== -->
+
+      <div class="switch-section">
+
+        <div class="switch-line">
+
+          <label>
+            Possui Tag Versão
+          </label>
+
+          <label class="switch">
+
+            <input type="checkbox" name="possuiTagVersao" [(ngModel)]="form.possuiTagVersao" />
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+
+        @if (form.possuiTagVersao) {
+
+        <div class="form-group">
+
+          <label>
+            Nome Tag Gerada
+          </label>
+
+          <input type="text" name="nomeTagVersao" [(ngModel)]="form.nomeTagGerada" placeholder="Ex.: v3.63.0-9" />
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- ================================== -->
+      <!-- RODAPÉ -->
+      <!-- ================================== -->
+
+      <footer class="modal-footer">
+
+        <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="saving">
+          Cancelar
+        </button>
+
+
+        <button type="submit" class="btn-save" [disabled]="saving">
+
+          @if (saving) {
+
+          Salvando...
+
+          } @else {
+
+          Salvar
+
+          }
+
+        </button>
+
+      </footer>
+
+    </form>
+
+  </div>
+
+</div>
+
+}
