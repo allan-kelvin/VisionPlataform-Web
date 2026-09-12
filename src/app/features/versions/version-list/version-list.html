@@ -1,0 +1,605 @@
+<div class="versions-page">
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="versions-page__header">
+
+    <div class="versions-page__title">
+
+      <div class="versions-page__icon">
+
+        <vp-icon name="layers" [size]="28">
+        </vp-icon>
+
+      </div>
+
+      <div>
+
+        <h1>
+          Versões
+        </h1>
+
+        <p>
+          Gerencie todas as versões do sistema e acompanhe seu ciclo de vida.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <vp-button variant="primary" icon="add" iconPosition="left" [fullWidth]="false" (click)="newVersion()">
+
+      Nova Versão
+
+    </vp-button>
+
+  </header>
+
+
+
+  <!-- ===================================================== -->
+  <!-- FILTROS -->
+  <!-- ===================================================== -->
+
+  <section class="versions-filter">
+
+
+    <!-- ID -->
+
+    <div class="versions-filter__field">
+
+      <label for="version-id">
+        ID
+      </label>
+
+      <input id="version-id" type="number" placeholder="Buscar por ID" [(ngModel)]="idFilter">
+
+    </div>
+
+
+    <!-- NÚMERO DA VERSÃO -->
+
+    <div class="versions-filter__field">
+
+      <label for="version-number">
+        Número da Versão
+      </label>
+
+      <input id="version-number" type="text" placeholder="Buscar por versão" [(ngModel)]="numeroVersaoFilter">
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="versions-filter__field">
+
+      <label for="version-status">
+        Status da Versão
+      </label>
+
+      <select id="version-status" [(ngModel)]="statusFilter">
+
+        <option value="">
+          Todos os status
+        </option>
+
+        <option value="Planejamento">
+          Planejamento
+        </option>
+
+        <option value="EmTestes">
+          Em testes
+        </option>
+
+        <option value="Liberada">
+          Liberada
+        </option>
+
+        <option value="Cancelada">
+          Cancelada
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- DATA INICIAL -->
+
+    <div class="versions-filter__field">
+
+      <label for="release-start">
+        Liberação a partir de
+      </label>
+
+      <input id="release-start" type="date" [(ngModel)]="dataLiberacaoInicio">
+
+    </div>
+
+
+    <!-- DATA FINAL -->
+
+    <div class="versions-filter__field">
+
+      <label for="release-end">
+        Liberação até
+      </label>
+
+      <input id="release-end" type="date" [(ngModel)]="dataLiberacaoFim">
+
+    </div>
+
+
+    <!-- AÇÕES -->
+
+    <div class="versions-filter__actions">
+
+      <vp-button variant="primary" icon="filter" iconPosition="left" [fullWidth]="false" (click)="filterVersions()">
+
+        Filtrar
+
+      </vp-button>
+
+
+      <button type="button" class="versions-filter__clear" (click)="clearFilters()">
+
+        <vp-icon name="refresh" [size]="16">
+        </vp-icon>
+
+        <span>
+          Limpar
+        </span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================== -->
+  <!-- ERRO -->
+  <!-- ===================================================== -->
+
+  @if (errorMessage) {
+
+  <div class="versions-alert">
+
+    <div class="versions-alert__content">
+
+      <vp-icon name="error" [size]="18">
+      </vp-icon>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+
+    <button type="button" class="versions-alert__retry" (click)="retry()">
+
+      Tentar novamente
+
+    </button>
+
+  </div>
+
+  }
+
+
+
+  <!-- ===================================================== -->
+  <!-- LISTA -->
+  <!-- ===================================================== -->
+
+  <section class="versions-table">
+
+
+    <!-- =================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- =================================================== -->
+
+    <div class="versions-table__top">
+
+      <h2>
+        Lista de Versões
+      </h2>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- HEADER DA TABELA -->
+    <!-- =================================================== -->
+
+    <div class="versions-table__header">
+
+      <span>
+        ID
+      </span>
+
+      <span>
+        Número da Versão
+      </span>
+
+      <span>
+        Status da Versão
+      </span>
+
+      <span>
+        Data Limite Tarefas
+      </span>
+
+      <span>
+        Data Previsão Liberação
+      </span>
+
+      <span>
+        Data Liberação
+      </span>
+
+      <span>
+        Ações
+      </span>
+
+    </div>
+
+
+
+    <!-- =================================================== -->
+    <!-- LOADING -->
+    <!-- =================================================== -->
+
+    @if (loading) {
+
+    <div class="versions-table__loading">
+
+      <span class="versions-table__spinner"></span>
+
+      <strong>
+        Carregando versões...
+      </strong>
+
+      <span>
+        Aguarde enquanto buscamos as versões.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- VERSÕES -->
+    <!-- =================================================== -->
+
+    @else if (filteredVersions.length > 0) {
+
+    @for (
+    version of paginatedVersions;
+    track version.id
+    ) {
+
+    <div class="versions-table__row">
+
+
+      <!-- ID -->
+
+      <span class="version-id">
+
+        {{ version.id }}
+
+      </span>
+
+
+      <!-- NÚMERO -->
+
+      <strong class="version-number">
+
+        {{ version.numeroVersao }}
+
+      </strong>
+
+
+      <!-- STATUS -->
+
+      <span class="version-status" [class.version-status--released]="
+              getStatusClass(version.statusVersao) === 'released'
+            " [class.version-status--testing]="
+              getStatusClass(version.statusVersao) === 'testing'
+            " [class.version-status--planning]="
+              getStatusClass(version.statusVersao) === 'planning'
+            " [class.version-status--cancelled]="
+              getStatusClass(version.statusVersao) === 'cancelled'
+            ">
+
+        <span class="version-status__dot"></span>
+
+        {{ getStatusLabel(version.statusVersao) }}
+
+      </span>
+
+
+      <!-- DATA LIMITE -->
+
+      <span>
+
+        {{ formatDate(version.dataLimiteTarefas) }}
+
+      </span>
+
+
+      <!-- DATA PREVISÃO -->
+
+      <span>
+
+        {{ formatDate(version.dataPrevistaLiberacao) }}
+
+      </span>
+
+
+      <!-- DATA LIBERAÇÃO -->
+
+      <span>
+
+        {{ formatDate(version.dataLiberacaoReal) }}
+
+      </span>
+
+
+      <!-- AÇÕES -->
+
+      <div class="version-actions">
+
+        <!-- EDITAR -->
+
+        <button type="button" class="version-actions__button" title="Editar" (click)="editVersion(version)">
+
+          <vp-icon name="edit" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- MENU -->
+
+        <div class="version-actions__menu-container">
+
+          <button type="button" class="version-actions__button" title="Ações" (click)="toggleActionMenu(version.id)">
+
+            <vp-icon name="more_vert" [size]="18">
+            </vp-icon>
+
+          </button>
+
+
+          <!-- SUBMENU -->
+
+          @if (openActionMenuId === version.id) {
+
+          <div class="version-actions__dropdown">
+
+
+            <!-- LIBERAR -->
+
+            <button type="button" class="version-actions__dropdown-item version-actions__dropdown-item--release"
+              [disabled]="
+    version.statusVersao === 'Liberada' ||
+    version.statusVersao === 'Cancelada'
+  " (click)="releaseVersion(version)">
+
+              <span class="version-actions__status-dot"></span>
+
+              <span>
+                Liberar
+              </span>
+
+            </button>
+
+
+            <!-- INICIAR TESTES -->
+
+            <button type="button" class="version-actions__dropdown-item version-actions__dropdown-item--testing"
+              [disabled]="
+    version.statusVersao === 'Liberada' ||
+    version.statusVersao === 'Cancelada'
+  " (click)="startTesting(version)">
+
+              <span class="version-actions__status-dot"></span>
+
+              <span>
+                Iniciar testes
+              </span>
+
+            </button>
+
+
+            <!-- CANCELAR -->
+
+            <button type="button" class="version-actions__dropdown-item version-actions__dropdown-item--cancel"
+              [disabled]="
+    version.statusVersao === 'Liberada' ||
+    version.statusVersao === 'Cancelada'
+  " (click)="cancelVersion(version)">
+
+              <span class="version-actions__status-dot"></span>
+
+              <span>
+                Cancelar
+              </span>
+
+            </button>
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- SEM RESULTADO -->
+    <!-- =================================================== -->
+
+    @else {
+
+    <div class="versions-table__empty">
+
+      <div class="versions-table__empty-icon">
+
+        <vp-icon name="layers" [size]="30">
+        </vp-icon>
+
+      </div>
+
+      <strong>
+        Nenhuma versão encontrada
+      </strong>
+
+      <span>
+        Tente alterar os filtros utilizados.
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- =================================================== -->
+    <!-- PAGINAÇÃO -->
+    <!-- =================================================== -->
+
+    @if (
+    !loading &&
+    filteredVersions.length > 0
+    ) {
+
+    <div class="versions-pagination">
+
+
+      <span class="versions-pagination__info">
+
+        Mostrando
+
+        <strong>
+          {{ firstItem }}
+        </strong>
+
+        a
+
+        <strong>
+          {{ lastItem }}
+        </strong>
+
+        de
+
+        <strong>
+          {{ filteredVersions.length }}
+        </strong>
+
+        versões
+
+      </span>
+
+
+      <div class="versions-pagination__buttons">
+
+
+        <!-- PRIMEIRA -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(1)">
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_left" [size]="16">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ANTERIOR -->
+
+        <button type="button" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+
+          <vp-icon name="chevron_left" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- PÁGINAS -->
+
+        @for (
+        page of pages;
+        track page
+        ) {
+
+        <button type="button" [class.active]="page === currentPage" (click)="goToPage(page)">
+
+          {{ page }}
+
+        </button>
+
+        }
+
+
+        <!-- PRÓXIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+
+          <vp-icon name="chevron_right" [size]="18">
+          </vp-icon>
+
+        </button>
+
+
+        <!-- ÚLTIMA -->
+
+        <button type="button" [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+          <vp-icon name="chevron_right" [size]="16">
+          </vp-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+  </section>
+  <!-- ===================================================== -->
+  <!-- CONFIRMAR CANCELAMENTO -->
+  <!-- ===================================================== -->
+
+  <vp-confirm-dialog [open]="cancelDialogOpen" title="Cancelar versão" message="Deseja realmente cancelar a versão"
+    [highlightText]="selectedVersion?.numeroVersao ?? ''"
+    warningMessage="Ao cancelar a versão, ela não poderá mais ser alterada." confirmText="Sim" cancelText="Não"
+    icon="error" (confirmed)="confirmCancelVersion()" (cancelled)="closeCancelDialog()" (closed)="closeCancelDialog()">
+
+  </vp-confirm-dialog>
+
+</div>

@@ -1,0 +1,161 @@
+<main class="version-task-page">
+
+  <!-- ================================= -->
+  <!-- CABEÇALHO -->
+  <!-- ================================= -->
+
+  <header class="page-header">
+
+    <div>
+
+      <h1>
+        Planejamento de Versões
+      </h1>
+
+      <p>
+        Gerencie versões e suas tarefas
+      </p>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================= -->
+  <!-- FILTROS -->
+  <!-- ================================= -->
+
+  <section class="filters">
+
+  <!-- BUSCA -->
+
+  <div class="filter-search">
+
+    <span class="filter-icon">
+      ⌕
+    </span>
+
+    <input
+      type="text"
+      placeholder="Buscar versão..."
+    />
+
+  </div>
+
+
+  <!-- DATA INICIAL -->
+
+  <div class="date-filter">
+
+    <span class="filter-icon">
+      ▣
+    </span>
+
+    <div class="date-content">
+
+      <label>
+        Data inicial
+      </label>
+
+      <input
+        type="date"
+        [(ngModel)]="dataInicial"
+      />
+
+    </div>
+
+  </div>
+
+
+  <!-- DATA FINAL -->
+
+  <div class="date-filter">
+
+    <span class="filter-icon">
+      ▣
+    </span>
+
+    <div class="date-content">
+
+      <label>
+        Data final
+      </label>
+
+      <input
+        type="date"
+        [(ngModel)]="dataFinal"
+      />
+
+    </div>
+
+  </div>
+
+
+  <!-- FILTRAR -->
+
+  <button
+    type="button"
+    class="filter-button"
+    (click)="applyFilters()"
+  >
+
+    <span>
+      ⌕
+    </span>
+
+    Filtrar
+
+  </button>
+
+
+  <!-- ATUALIZAR -->
+
+  <button
+    type="button"
+    class="refresh-button"
+    (click)="refreshPage()"
+  >
+
+    <span class="refresh-icon">
+      ↻
+    </span>
+
+    Atualizar
+
+  </button>
+
+</section>
+
+
+  <!-- ================================= -->
+  <!-- CARDS -->
+  <!-- ================================= -->
+
+ <app-version-task-cards
+  [versions]="filteredVersions"
+  [selectedVersion]="selectedVersion"
+  (versionSelected)="selectVersion($event)"
+/>
+
+
+  <!-- ================================= -->
+  <!-- DETALHES -->
+  <!-- ================================= -->
+
+  <app-version-task-details
+    [version]="selectedVersion"
+  />
+
+
+  <!-- ================================= -->
+  <!-- TAREFAS -->
+  <!-- ================================= -->
+
+  <app-version-task-list
+  [tasks]="tasks"
+  [version]="selectedVersion"
+  [versionLiberada]="versionLiberada"
+  (taskSaved)="onTaskSaved()"
+/>
+
+</main>

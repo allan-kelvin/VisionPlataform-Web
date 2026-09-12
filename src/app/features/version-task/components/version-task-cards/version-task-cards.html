@@ -1,0 +1,47 @@
+<div class="versions-wrapper">
+
+  <div class="versions-scroll">
+
+    @for (version of versions; track version.id) {
+
+      <button
+        type="button"
+        class="version-card"
+        [class.selected]="selectedVersion?.id === version.id"
+        (click)="selectVersion(version)"
+      >
+
+        <div class="version-card-header">
+
+          <strong>
+            {{ version.numeroVersao }}
+          </strong>
+
+          <span
+            class="status"
+            [class.status-liberada]="version.statusVersao === 'Liberada'"
+            [class.status-testes]="version.statusVersao === 'EmTestes'"
+            [class.status-planejamento]="version.statusVersao === 'Planejamento'"
+          >
+            {{ version.statusVersao }}
+          </span>
+
+        </div>
+
+        <div class="version-card-content">
+
+          <span>Versão</span>
+
+          <strong>
+            {{ version.numeroVersao }}
+          </strong>
+
+        </div>
+
+      </button>
+
+    }
+
+  </div>
+
+</div>

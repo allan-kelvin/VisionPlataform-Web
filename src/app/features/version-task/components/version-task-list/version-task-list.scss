@@ -1,0 +1,407 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+
+.tasks-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.tasks-header {
+  height: 54px;
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+.tasks-header h2 {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* =========================
+   BOTÃO ADICIONAR
+========================= */
+
+.add-button {
+  height: 32px;
+  padding: 0 14px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #00b87a;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: 0.2s ease;
+}
+
+.add-button:hover:not(:disabled) {
+  background: #00a970;
+}
+
+.add-button:disabled {
+  background: #cbd5e1;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+.add-button span {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* =========================
+   TABELA
+========================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Scroll horizontal */
+
+.table-wrapper::-webkit-scrollbar {
+  height: 7px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Firefox */
+
+.table-wrapper {
+  scrollbar-color: #cbd5e1 #f1f5f9;
+  scrollbar-width: thin;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper table {
+  width: 100%;
+  min-width: 1050px;
+
+  border-collapse: collapse;
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.table-wrapper thead {
+  background: #f8fafc;
+}
+
+.table-wrapper th {
+  height: 36px;
+  padding: 0 10px;
+
+  text-align: left;
+
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  white-space: nowrap;
+}
+
+/* =========================
+   LINHAS
+========================= */
+
+.table-wrapper td {
+  height: 40px;
+  padding: 0 10px;
+
+  font-size: 11px;
+  color: #475569;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  white-space: nowrap;
+}
+
+.table-wrapper tbody tr {
+  transition: background 0.15s ease;
+}
+
+.table-wrapper tbody tr:hover {
+  background: #f8fafc;
+}
+
+.table-wrapper tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   ÍNDICE
+========================= */
+
+.index {
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* =========================
+   AZURE
+========================= */
+
+.azure-link {
+  color: #1683d8;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: 0.15s ease;
+}
+
+.azure-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.title {
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+/* =========================
+   TIPO
+========================= */
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+
+  border-radius: 5px;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* Melhoria */
+
+.type-melhoria {
+  background: #e7f2ff;
+  color: #2684d9;
+}
+
+/* Alteração */
+
+.type-alteracao {
+  background: #fff2d8;
+  color: #d97706;
+}
+
+/* Correção */
+
+.type-correcao {
+  background: #ffe7e7;
+  color: #ef4444;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 9px;
+
+  border-radius: 5px;
+
+  background: #f1f5f9;
+  color: #475569;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* Confirmado */
+
+.status-confirmado {
+  background: #dff8ef;
+  color: #059669;
+}
+
+/* Em teste */
+
+.status-em-teste {
+  background: #fff1dc;
+  color: #d97706;
+}
+
+/* Rejeitada */
+
+.status-rejeitada {
+  background: #ffe7e7;
+  color: #ef4444;
+}
+
+/* Planejada */
+
+.status-planejada {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* =========================
+   QA
+========================= */
+
+.qa {
+  color: #475569;
+}
+
+/* =========================
+   ÍCONES / INDICADORES
+========================= */
+
+.icon-cell {
+  width: 50px;
+
+  text-align: center;
+}
+
+.icon-cell span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Evidências */
+
+.check-icon {
+  color: #00b87a;
+}
+
+/* Sucesso */
+
+.success {
+  color: #00b87a;
+}
+
+/* Erro */
+
+.error {
+  color: #ef4444;
+}
+
+/* =========================
+   ESTADO VAZIO
+========================= */
+
+.empty-state {
+  min-height: 180px;
+
+  padding: 30px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  text-align: center;
+}
+
+.type-bug {
+  background: #fde8e8;
+  color: #dc2626;
+}
+
+.empty-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ecfdf5;
+  color: #00b87a;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  margin-bottom: 4px;
+}
+
+.empty-state strong {
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.empty-state span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+  .tasks-header {
+    padding: 0 12px;
+  }
+
+  .table-wrapper th,
+  .table-wrapper td {
+    padding: 0 8px;
+  }
+}

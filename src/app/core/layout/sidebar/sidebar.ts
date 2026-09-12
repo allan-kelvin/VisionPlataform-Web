@@ -79,7 +79,7 @@ export class Sidebar {
         {
           title: 'Planejamento de Versão',
           icon: 'calendar_month',
-          route: '/planning'
+          route: '/version-task'
         },
 
         {
@@ -87,12 +87,6 @@ export class Sidebar {
           icon: 'layers',
           route: '/versions'
         },
-
-        {
-          title: 'Tarefas',
-          icon: 'task_alt',
-          route: '/tasks'
-        }
 
       ]
 
@@ -193,12 +187,6 @@ export class Sidebar {
           icon: 'settings',
           route: '/settings'
         },
-
-        {
-          title: 'Integrações',
-          icon: 'extension',
-          route: '/integrations'
-        }
 
       ]
 

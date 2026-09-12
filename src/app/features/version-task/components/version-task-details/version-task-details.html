@@ -1,0 +1,104 @@
+@if (version) {
+
+<section class="details-card">
+
+  <div class="details-header">
+
+    <div class="version-title">
+
+      <h2>
+        {{ version.numeroVersao }}
+      </h2>
+
+      <span class="status" [class.status-liberada]="version.statusVersao === 'Liberada'"
+        [class.status-testes]="version.statusVersao === 'EmTestes'"
+        [class.status-planejamento]="version.statusVersao === 'Planejamento'">
+        {{ version.statusVersao }}
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="details-grid">
+
+    <div class="detail-item">
+
+      <span>
+        Limite Tarefas
+      </span>
+
+      <strong>
+        {{
+        version.dataLimiteTarefas
+        ? (version.dataLimiteTarefas | date:'dd/MM/yyyy')
+        : '—'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-item">
+
+      <span>
+        Previsão Liberação
+      </span>
+
+      <strong>
+        {{
+        version.dataPrevistaLiberacao
+        ? (version.dataPrevistaLiberacao | date:'dd/MM/yyyy')
+        : '—'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-item">
+
+      <span>
+        Liberação Real
+      </span>
+
+      <strong>
+        {{
+        version.dataLiberacaoReal
+        ? (version.dataLiberacaoReal | date:'dd/MM/yyyy')
+        : '—'
+        }}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-item">
+
+      <span>
+        Criado por
+      </span>
+
+      <strong>
+        {{ version.criadorNome || '-' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  @if (version.observacoes) {
+
+  <div class="details-observation">
+
+    {{ version.observacoes }}
+
+  </div>
+
+  }
+
+</section>
+
+}

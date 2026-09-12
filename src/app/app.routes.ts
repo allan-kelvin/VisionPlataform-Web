@@ -1,15 +1,11 @@
 import { Routes } from '@angular/router';
-
 import { authGuard } from './core/auth/guards/auth.guard';
-
 import { MainLayout } from './core/layout/main-layout/main-layout';
 
 
 export const routes: Routes = [
 
-  // =========================================================
   // LOGIN
-  // =========================================================
 
   {
     path: 'login',
@@ -19,24 +15,16 @@ export const routes: Routes = [
         .then(c => c.Login)
   },
 
-
-  // =========================================================
   // ÁREA AUTENTICADA
-  // =========================================================
 
   {
     path: '',
 
     component: MainLayout,
-
     canActivate: [authGuard],
-
     children: [
 
-
-      // =====================================================
       // DASHBOARD
-      // =====================================================
 
       {
         path: 'dashboard',
@@ -46,10 +34,7 @@ export const routes: Routes = [
             .then(c => c.Dashboard)
       },
 
-
-      // =====================================================
       // USUÁRIOS
-      // =====================================================
 
       {
         path: 'users',
@@ -59,7 +44,6 @@ export const routes: Routes = [
             .then(c => c.UserList)
       },
 
-
       {
         path: 'users/new',
 
@@ -67,7 +51,6 @@ export const routes: Routes = [
           import('./features/users/user-create/user-create')
             .then(c => c.UserCreate)
       },
-
 
       {
         path: 'users/:id',
@@ -77,10 +60,7 @@ export const routes: Routes = [
             .then(c => c.UserCreate)
       },
 
-
-      // =====================================================
       // CLIENTES
-      // =====================================================
 
       {
         path: 'clients',
@@ -90,11 +70,7 @@ export const routes: Routes = [
             .then(c => c.ClientList)
       },
 
-
-      // =====================================================
       // NOVO CLIENTE
-      // =====================================================
-
 
       {
         path: 'clients/new',
@@ -104,9 +80,7 @@ export const routes: Routes = [
             .then(c => c.ClientCreate)
       },
 
-      // =====================================================
       // EDITAR CLIENTE
-      // =====================================================
 
       {
         path: 'clients/:id',
@@ -142,31 +116,58 @@ export const routes: Routes = [
             .then(c => c.AreaCreate)
       },
 
+      //Versões
+
+      {
+        path: 'versions',
+
+        loadComponent: () =>
+          import('./features/versions/version-list/version-list')
+            .then(c => c.VersionList)
+      },
+
+      {
+        path: 'versions/new',
+
+        loadComponent: () =>
+          import('./features/versions/version-create/version-create')
+            .then(c => c.VersionCreate)
+      },
+
+      {
+        path: 'versions/:id',
+
+        loadComponent: () =>
+          import('./features/versions/version-create/version-create')
+            .then(c => c.VersionCreate)
+      },
+
+      //Planejamento de versão
+
+      {
+        path: 'version-task',
+        loadComponent: () =>
+          import('./features/version-task/version-task')
+            .then(m => m.VersionTask)
+      }
 
     ]
   },
 
 
-  // =========================================================
   // ROTA PADRÃO
-  // =========================================================
 
   {
     path: '',
-
     pathMatch: 'full',
-
     redirectTo: 'dashboard'
   },
 
 
-  // =========================================================
   // QUALQUER ROTA INVÁLIDA
-  // =========================================================
 
   {
     path: '**',
-
     redirectTo: 'dashboard'
   }
 

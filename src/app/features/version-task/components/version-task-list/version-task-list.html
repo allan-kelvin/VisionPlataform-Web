@@ -1,0 +1,193 @@
+<section class="tasks-card">
+
+  <div class="tasks-header">
+
+    <h2>
+      Tarefas ({{ tasks.length }})
+    </h2>
+
+    <button type="button" class="add-button" [disabled]="versionLiberada" (click)="openAddTask()">
+      <span>+</span>
+      Adicionar Tarefa
+    </button>
+
+  </div>
+
+
+  @if (tasks.length > 0) {
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>#</th>
+
+          <th>Azure</th>
+
+          <th>Título</th>
+
+          <th>Cliente</th>
+
+          <th>Tipo</th>
+
+          <th>Área</th>
+
+          <th>Status</th>
+
+          <th>QA</th>
+
+          <th>Evidências</th>
+
+          <th>Merge</th>
+
+          <th>Script</th>
+
+          <th>Tag</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        @for (task of tasks; track task.id; let index = $index) {
+
+        <tr>
+
+          <td class="index">
+            {{ index + 1 }}
+          </td>
+
+
+          <td>
+
+            <a class="azure-link" [href]="task.azureTaskUrl" target="_blank" rel="noopener noreferrer">
+              {{ task.azureTaskId }}
+              ↗
+            </a>
+
+          </td>
+
+
+          <td class="title">
+            {{ task.titulo }}
+          </td>
+
+
+          <td>
+            {{ task.cliente || '—' }}
+          </td>
+
+
+          <td>
+
+            <span class="type-badge" [class]="getTaskTypeClass(task.tipo)">
+              {{ task.tipo }}
+            </span>
+
+          </td>
+
+
+          <td>
+            {{ task.area || '—' }}
+          </td>
+
+
+          <td>
+
+            <span class="status-badge" [class]="getStatusClass(task.statusPlanejamento)">
+              {{ task.statusPlanejamento }}
+            </span>
+
+          </td>
+
+
+          <td>
+            {{ task.qa || '—' }}
+          </td>
+
+
+          <td class="icon-cell">
+
+            <span class="check-icon" title="Evidências">
+              ✓
+            </span>
+
+          </td>
+
+
+          <td class="icon-cell">
+
+            <span [class.success]="task.mergeRealizado" [class.error]="!task.mergeRealizado">
+              {{ task.mergeRealizado ? '✓' : '×' }}
+            </span>
+
+          </td>
+
+
+          <td class="icon-cell">
+
+            <span [class.success]="task.possuiScript" [class.error]="!task.possuiScript">
+              {{ task.possuiScript ? '✓' : '×' }}
+            </span>
+
+          </td>
+
+
+          <td class="icon-cell">
+
+            <span [class.success]="task.possuiTagVersao" [class.error]="!task.possuiTagVersao">
+              {{ task.possuiTagVersao ? '✓' : '×' }}
+            </span>
+
+          </td>
+
+        </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  }
+
+  @else {
+
+  <div class="empty-state">
+
+    <div class="empty-icon">
+      ✓
+    </div>
+
+    <strong>
+      Nenhuma tarefa encontrada
+    </strong>
+
+    <span>
+      Esta versão ainda não possui tarefas vinculadas.
+    </span>
+
+  </div>
+
+  }
+
+</section>
+
+
+@if (showTaskModal && version) {
+
+  <app-version-task-model
+    [version]="version"
+    (close)="closeTaskModal()"
+    (saved)="onTaskSaved()"
+  />
+
+}

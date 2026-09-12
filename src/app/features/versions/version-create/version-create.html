@@ -1,0 +1,363 @@
+<div class="version-create-page">
+
+
+  <!-- ===================================================== -->
+  <!-- BREADCRUMB -->
+  <!-- ===================================================== -->
+
+  <div class="version-create__breadcrumb">
+
+    <span>
+      Planejamento de Versões
+    </span>
+
+    <vp-icon name="chevron_right" [size]="18">
+    </vp-icon>
+
+    <strong>
+      {{ isEdit ? 'Editar Versão' : 'Nova Versão' }}
+    </strong>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <header class="version-create__header">
+
+    <div class="version-create__title">
+
+      <div class="version-create__icon">
+
+        <vp-icon name="layers" [size]="28">
+        </vp-icon>
+
+      </div>
+
+
+      <div>
+
+        <h1>
+          {{ isEdit ? 'Editar Versão' : 'Cadastro de Versão' }}
+        </h1>
+
+        <p>
+          {{
+          isEdit
+          ? 'Altere os dados da versão selecionada.'
+          : 'Crie uma nova versão do sistema para planejamento de tarefas.'
+          }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ===================================================== -->
+  <!-- LOADING -->
+  <!-- ===================================================== -->
+
+  @if (loading) {
+
+  <section class="version-create__loading">
+
+    <span class="version-create__spinner"></span>
+
+    <strong>
+      Carregando versão...
+    </strong>
+
+    <span>
+      Aguarde enquanto buscamos os dados.
+    </span>
+
+  </section>
+
+  }
+
+
+  <!-- ===================================================== -->
+  <!-- FORMULÁRIO -->
+  <!-- ===================================================== -->
+
+  @else {
+
+  <section class="version-create__card">
+
+
+    <!-- ================================================= -->
+    <!-- PRIMEIRA LINHA -->
+    <!-- ================================================= -->
+
+    <div class="version-create__grid">
+
+
+      <!-- =============================================== -->
+      <!-- NÚMERO DA VERSÃO -->
+      <!-- =============================================== -->
+
+      <div class="version-create__field">
+
+        <label for="version-number">
+          Número da Versão
+        </label>
+
+
+        <div class="version-create__input-wrapper">
+
+          <div class="version-create__input-icon">
+
+            <vp-icon name="tag" [size]="20">
+            </vp-icon>
+
+          </div>
+
+
+          <input id="version-number" type="text" placeholder="Ex: 3.65.0.0" [ngModel]="numeroVersao"
+            (ngModelChange)="formatVersion($event)" [disabled]="loading" inputmode="numeric" maxlength="8">
+
+        </div>
+
+
+        <small>
+          Digite o número da versão (ex: 3.65.0)
+        </small>
+
+      </div>
+
+
+
+      <!-- =============================================== -->
+      <!-- STATUS -->
+      <!-- =============================================== -->
+
+      <div class="version-create__field">
+
+        <label for="version-status">
+          Status da Versão
+        </label>
+
+
+        <div class="version-create__select-wrapper">
+
+          <div class="version-create__input-icon">
+
+            <vp-icon name="circle" [size]="18">
+            </vp-icon>
+
+          </div>
+
+
+          <select id="version-status" [(ngModel)]="statusVersao" [disabled]="saving">
+
+            @for (
+            status of statusOptions;
+            track status.value
+            ) {
+
+            <option [value]="status.value">
+
+              {{ status.label }}
+
+            </option>
+
+            }
+
+          </select>
+
+          <vp-icon name="expand_more" [size]="20">
+          </vp-icon>
+
+        </div>
+
+
+        <small>
+          Selecione o status atual da versão
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- SEGUNDA LINHA -->
+    <!-- ================================================= -->
+
+    <div class="version-create__grid">
+
+
+      <!-- =============================================== -->
+      <!-- DATA LIMITE -->
+      <!-- =============================================== -->
+
+      <div class="version-create__field">
+
+        <label for="task-limit-date">
+          Data Limite de Tarefas
+        </label>
+
+
+        <div class="version-create__input-wrapper">
+
+          <div class="version-create__input-icon">
+
+            <vp-icon name="calendar_today" [size]="20">
+            </vp-icon>
+
+          </div>
+
+
+          <input id="task-limit-date" type="date" [(ngModel)]="dataLimiteTarefas" [disabled]="saving">
+
+        </div>
+
+
+        <small>
+          Data limite para conclusão das tarefas
+        </small>
+
+      </div>
+
+
+
+      <!-- =============================================== -->
+      <!-- DATA PREVISTA -->
+      <!-- =============================================== -->
+
+      <div class="version-create__field">
+
+        <label for="release-date">
+          Data de Liberação
+        </label>
+
+
+        <div class="version-create__input-wrapper">
+
+          <div class="version-create__input-icon">
+
+            <vp-icon name="calendar_today" [size]="20">
+            </vp-icon>
+
+          </div>
+
+
+          <input id="release-date" type="date" [(ngModel)]="dataPrevistaLiberacao" [disabled]="saving">
+
+        </div>
+
+
+        <small>
+          Data prevista para liberação da versão
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- OBSERVAÇÕES -->
+    <!-- ================================================= -->
+
+    <div class="version-create__field version-create__field--full">
+
+      <label for="version-observations">
+        Observações
+      </label>
+
+
+      <div class="version-create__textarea-wrapper">
+
+        <div class="version-create__textarea-icon">
+
+          <vp-icon name="description" [size]="20">
+          </vp-icon>
+
+        </div>
+
+
+        <textarea id="version-observations" placeholder="Digite informações adicionais sobre esta versão..."
+          [(ngModel)]="observacoes" [disabled]="saving" maxlength="1000">
+          </textarea>
+
+      </div>
+
+
+      <small>
+        Informações adicionais sobre esta versão (opcional)
+      </small>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- ERRO -->
+    <!-- ================================================= -->
+
+    @if (errorMessage) {
+
+    <div class="version-create__error">
+
+      <vp-icon name="error" [size]="18">
+      </vp-icon>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+    }
+
+
+
+    <!-- ================================================= -->
+    <!-- DIVISOR -->
+    <!-- ================================================= -->
+
+    <div class="version-create__divider"></div>
+
+
+
+    <!-- ================================================= -->
+    <!-- AÇÕES -->
+    <!-- ================================================= -->
+
+    <div class="version-create__actions">
+
+      <vp-button variant="secondary" [fullWidth]="false" [disabled]="saving" (click)="cancel()">
+
+        Cancelar
+
+      </vp-button>
+
+
+      <vp-button variant="primary" icon="save" iconPosition="left" [fullWidth]="false" [disabled]="saving"
+        (click)="save()">
+
+        {{
+        saving
+        ? 'Salvando...'
+        : isEdit
+        ? 'Salvar Alterações'
+        : 'Salvar Versão'
+        }}
+
+      </vp-button>
+
+    </div>
+
+  </section>
+
+  }
+
+</div>
